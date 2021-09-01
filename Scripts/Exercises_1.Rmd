@@ -1,0 +1,96 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+
+data(golub)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+
+1. Some questions to orientate yourself.
+(a) Use the function class to find the class to which the follow-
+ing objects belong: golub, golub[1,1],golub.cl, golub.gnames,
+apply, exp, gol.fac, plot, ALL.
+(b) What is the meaning of the following abbreviations: rm, sum, prod,
+seq, sd, nrow.
+rm = remove 
+sum = Gaußsche Summe
+prod = Fakultät
+seq = sequenz von x bis y
+sd = standard deviation (Standardabweichung)
+nrow = Zeilenanzahl einer Matrix
+
+
+(c) For what purpose are the following functions useful: grep, apply,
+gl, library, source, setwd, history, str.
+
+grep - get data value where grep is true
+apply - applies a function like a for loop on all values specified in matrix 
+gl - to simulate experimental data with #ofpatients and #ofcases
+library - to load a library into r
+source - run the script
+setwd - set or get working directory - i use here
+history - shows history of commands
+str - displays structure of an R object
+
+
+
+
+```{r}
+class(golub)
+class(golub[1,1])
+class(golub.cl)
+class(golub.gnames)
+class(apply)
+class(exp)
+class(gol.fac)
+class(plot)
+class(ALL)
+str(golub)
+```
+2. gendat Consider the data in the matrix gendat, constructed in Sec-
+tion 1.6. Its small size has the advantage that you can check your
+computations even by a pocket calculator. 14
+(a) Use apply to compute the standard deviation of the persons.
+(b) Use apply to compute the standard deviation of the genes.
+(c) Order the matrix according to the gene standard deviations.
+(d) Which gene has the largest standard deviation?
+gene 2
+
+
+```{r}
+gendat
+apply(gendat,2, sd)
+gene_sd <- apply(gendat,1, sd)
+o <- order (gene_sd, decreasing = TRUE)
+gendat[o,]
+
+
+```
+3. Computations on gene means of the Golub data.
+(a) Use apply to compute the mean gene expression value.
+(b) Order the data matrix according to the gene means.
+(c) Give the names of the three genes with the largest mean expression
+value.
+(d) Give the biological names of these genes.
+
+```{r}
+golub_means<-apply(golub, 1,mean)
+o <- order(golub_means, decreasing = TRUE)
+golub[o,]
+golub.gnames[o,3]
+names(golub.gnames)
+```
+
