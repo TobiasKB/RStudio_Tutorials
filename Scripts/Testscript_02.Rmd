@@ -1,0 +1,90 @@
+---
+title: "Testscript_02"
+output: html_notebook
+---
+Example 1: 
+```{r Read from Genbank}
+install.packages(c("ape"),repo="http://cran.r-project.org",dep=TRUE)
+library(ape)
+table(read.GenBank(c("X94991.1"),as.character=TRUE))
+pie(table(read.GenBank(c("X94991.1"),as.character = TRUE)))
+
+```
+
+```{r Jitterplot}
+data(golub, package = "multtest")
+plot(golub[1042,])
+gol.fac <- factor(golub.cl,levels=0:1, labels= c("ALL","AML"))
+stripchart(golub[1042,] ~ gol.fac, method="jitter", vertical =TRUE)
+```
+
+```{r histogram}
+hist(golub[1042, gol.fac=="ALL"])
+```
+
+
+```{r sort}
+x <- sort(golub[1042, gol.fac=="ALL"], decreasing = FALSE)
+x[1:5]
+```
+
+
+```{r Boxplot}
+#----Boxplot----
+boxplot(golub[1042,] ~gol.fac)
+#contructs sequence running from 0.00 to 1.00 with 0.25 steps
+pvec <- seq(0,1,0.25)
+quantile(golub[1042, gol.fac=="ALL"],pvec)
+min(golub[1042, gol.fac=="ALL"])
+max(golub[1042, gol.fac=="ALL"])
+range(golub[1042, gol.fac=="ALL"])
+#to test for outliers: 
+#x < x 0.25 − 1.5 · (x 0.75 − x 0.25 ) or x > x 0.75 + 1.5 · (x 0.75 − x 0.25 ).
+#extreme outliers factor 3.0 instead of 1.5
+
+```
+
+
+```{r Quantile Distribution QQ plot}
+#----Quantile Quantile Plot----
+#Comparison to normal distribution is made, representated by a straight line 
+qqnorm(golub[1042, gol.fac=="ALL"])
+qqline(golub[1042, gol.fac=="ALL"])
+```
+
+Thus the sample mean is simply the average of the n data values. Since it
+is the sum of all data values divided by the sample size, a few extreme data
+values may largely influence its size. In other words, the mean is not robust
+against outliers.
+
+The median is defined as the second quartile or the 50th percentile, and
+is denoted by x 0.50 . When the data are symmetrically distributed around the
+mean, then the mean and the median are equal. Since extreme data values
+do not influence the size of the median, it is very robust against outliers.
+Robustness is important in bioinformatics because data are frequently con-
+taminated by extreme or otherwise influential data values.
+```{r Mean and Median}
+mean(golub[1042, gol.fac=="ALL"])
+median(golub[1042, gol.fac=="ALL"])
+
+#- as they differ by little, a symmetric data distribution is likely
+```
+
+The most important measures of spread are the standard deviation, the in-
+terquartile range, and the median absolute deviation. The standard deviation is the square root
+of the sample variance, which is defined as the squared differences between the data values and the sample mean. 
+The sample standard deviation s is the square root
+of the sample variance and may be interpreted as the distance of the data
+values to the mean. The variance and the standard deviation are not robust
+against outliers.
+The interquartile range is defined as the difference between the third and
+the first quartile, that is x 0.75 − x 0.25 . More specifically, the value IQR(x)/1.349 is a robust estimator of the standard deviation.
+The median absolute deviation (MAD) is defined as
+a constant times the median of the absolute deviations of the data from the
+median (e.g. Jurečková & Picek, 2006, p. 63). Constant in R is 1.4862. It equals the standard deviation in case the data come from a bell-shaped (normal) distribution. Because the interquartile range and the median absolute deviation are based on quantiles, these are robust against outliers.
+
+```{r}
+sd(golub[1042, gol.fac=="ALL"])
+IQR(golub[1042, gol.fac=="ALL"]) / 1.349
+mad(golub[1042, gol.fac=="ALL"])
+```
