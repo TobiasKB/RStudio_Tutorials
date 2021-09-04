@@ -2,17 +2,61 @@
 title: "R Notebook"
 output: html_notebook
 ---
+1. Illustration of mean and standard deviation.
+(a) Compute the mean and the standard deviation for 1, 1.5, 2, 2.5, 3.
+(b) Compute the mean and the standard deviation for 1, 1.5, 2, 2.5, 30.
+(c) Comment on the differences.
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+```{r Task 1}
+# a) ====
+x1 <-c(1, 1.5, 2, 2.5, 3)
+x1_mean<- mean(x1)
+x1_sd<-sd(x1)
+#b)====
+x2<-c(1, 1.5, 2, 2.5, 30)
+x2_mean<-mean(x2)
+x2_sd<-sd(x2)
+#c)====
+x1_mean
+x2_mean
+x1_sd
+x2_sd
+#the mean is heavily influenced by  extreme values in the dataset and is not a robust against spread
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+```
+2. Comparing normality for two genes. Consider the gene expression val-
+ues in row 790 and 66 of the Golub et al. (1999) data.
+(a) Produce a boxplot for the expression values of the ALL patients
+and comment on the differences. Are there outliers?
+For line 790 there are 3 outliers, for line 66 there are none
+(b) Produce a QQ-plot and formulate a hypothesis about the normal-
+ity of the genes.
+66 is normally distributed, but 790 is not
+(c) Compute the mean and the median for the expression values of
+the ALL patients and compare these. Do this for both genes.
+```{r Task 2}
+library(ALL)
+data(golub, package = "multtest")
+i<-c(66,790)
+#a) ====
+data_snippet_790<-golub[790,]
+data_snippet_66<- golub[66,]
+gol.fac <- factor(golub.cl,levels=0:1, labels= c("ALL","AML"))
+boxplot(golub[790,],gol.fac=="ALL")
+boxplot(golub[66,],gol.fac=="ALL")
+boxplot(golub[790,]~gol.fac)
+boxplot(golub[66,]~gol.fac)
+#b)====
+qqnorm(golub[790, gol.fac=="ALL"])
+qqline(golub[790, gol.fac=="ALL"])
+qqnorm(golub[66, gol.fac=="ALL"])
+qqline(golub[66, gol.fac=="ALL"])
 
-```{r}
-plot(cars)
+#c)====
+ds_mean_66<-mean(golub[66,gol.fac=="ALL"])
+ds_mean_790<-mean(golub[790,gol.fac=="ALL"])
+ds_median_66<-median(golub[66,gol.fac=="ALL"])
+ds_median_790<-median(golub[790,gol.fac=="ALL"])
+
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
-
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
-
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
