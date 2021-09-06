@@ -31,9 +31,14 @@ and comment on the differences. Are there outliers?
 For line 790 there are 3 outliers, for line 66 there are none
 (b) Produce a QQ-plot and formulate a hypothesis about the normal-
 ity of the genes.
+
 66 is normally distributed, but 790 is not
+
 (c) Compute the mean and the median for the expression values of
 the ALL patients and compare these. Do this for both genes.
+Due to outliers on right hand side mean -1.17 is larger than -1.28. For 
+gen in row 66 the mean is 1.182503 and the median is 1.23023 the differences are smaller. 
+
 ```{r Task 2}
 library(ALL)
 data(golub, package = "multtest")
@@ -59,4 +64,153 @@ ds_median_66<-median(golub[66,gol.fac=="ALL"])
 ds_median_790<-median(golub[790,gol.fac=="ALL"])
 
 ```
+3. Effect size. An important statistic to measure the effect size which
+is defined for a sample as x/s. It measures the mean relative to the
+standard deviation, so that is value is large when the mean is large and
+the standard deviation small.
 
+(a) Determine the five genes with the largest effect size of the ALL
+patients from the Golub et al. (1999) data. Comment on their
+size.
+1. Compute factor mean/sd for all golub ALL, sort and grep top5, get size of thosee genes
+Mean with 11x larger than sd is large=?
+
+(b) Invent a robust variant of the effect size and use it to answer the
+previous question.
+```{r Task 3}
+#a)====
+gol.fac <-factor(golub.cl,levels=0:1,labels=c("ALL","AML"))
+golub_es<- apply(golub[,gol.fac=="ALL"], 1, mean)/apply(golub[,gol.fac=="ALL"], 1, sd)
+golub_es_2 <- apply(golub[,gol.fac=="ALL"],1,function(x)mean(x)/sd(x))
+#golub_es == golub_es_2
+
+o <- order(golub_es, decreasing = TRUE)
+golub_es[o[1:5]]
+
+golub.gnames[o[1:5],2]
+
+#b====
+#define median by MAD OR divide median by IQR
+#mad equals sd if bellshaped normally distributed
+golub_es_robust <- apply(golub[,gol.fac=="ALL"],1,function(x)mean(x)/mad(x))
+#plot with quantile plotting ?
+o<- order(golub_es_robust,decreasing = TRUE)
+golub_es_robust[o[1:5]]
+golub.gnames[o[1:5],2]
+
+golub_es_robust_IQR <- apply(golub[,gol.fac=="ALL"],1, function(x)median(x)/IQR(x))
+o<- order(golub_es_robust_IQR,decreasing = TRUE)
+golub_es_robust_IQR[o[1:5]]
+golub.gnames[o[1:5],2]
+
+qqnorm(golub_es_robust)
+qqline(golub_es_robust)
+
+qqnorm(golub_es_robust_IQR)
+qqline(golub_es_robust_IQR)
+
+```
+4. Plotting gene expressions "CCND3 Cyclin D3". Use the gene expres-
+sions from "CCND3 Cyclin D3" of Golub et al. (1999) collected in row
+1042 of the object golub from the multtest library. After using the
+function plot you produce an object on which you can program.
+(a) Produce a so-called stripchart for the gene expressions separately
+for the ALL as well as for the AML patients. Hint: Use a factor
+for appropriate separation.
+(b) Rotate the plot to a vertical position and keep it that way for the
+questions to come.
+(c) Color the ALL expressions red and AML blue. Hint: Use the col
+parameter.
+(d) Add a title to the plot. Hint: Use title.
+(e) Change the boxes into stars. Hint: Use the pch parameter.
+Hint: Store the final script you like the most in your typewriter
+in order to be able to use it efficiently later on.
+```{r Task 4}
+#a)====
+gol.fac <-factor(golub.cl,levels=0:1,labels=c("ALL","AML"))
+
+stripchart(golub[1042, gol.fac=="ALL"], method="jitter",vertical = TRUE)
+stripchart(golub[1042, gol.fac=="AML"], method="jitter", vertical=TRUE)
+
+stripchart(golub[1042,] ~ gol.fac,method="jitter",col=c("red", "blue"),vertical = TRUE)
+title("CCND3 Cyclin D3 expression value for AML and ALL patients")
+stripchart(golub[1042,] ~ gol.fac,method="jitter",col=c("red", "blue"),pch="*",vertical = TRUE)
+
+```
+5. Box-and-Whiskers plot of "CCND3 Cyclin D3". Use the gene expres-
+sions "CCND3 Cyclin D3" of Golub et al. (1999) from row 1042 of the
+object golub of the multtest library.
+(a) Construct the boxplot in Figure 2.6.
+(b) Add text to the plot to explain the meaning of the upper and
+lower part of the box.
+(c) Do the same for the wiskers.
+(d) Export your plot to eps format.
+Hint
+locator() to find coordinates of the position of the plot.
+xlim to make the plot somewhat wider.
+arrows to add an arrow.
+text to add information at a certain position.
+```{r Task 5}
+gol.fac <-factor(golub.cl,levels=0:1,labels=c("ALL","AML"))
+z<-boxplot(golub[1042,] ~gol.fac)
+locator(boxplot(golub[1042,]~gol.fac))
+x11()
+x<-data(golub, package = "multtest")
+#PROBLEM: plot.new has not been called yet - der Plot muss zusammen in einem run erzeugt werden
+#Außerdem läuft dann locator() im loop und das programm nicht weiter? 
+boxplot(x,xlim=c(0,4))
+#arrows(2.0,1.93,1.24,1.93);text(2.5,1.93,"Median")
+#arrows(2.0,1.1,1.24,1.1) ;text(2.5,1.1,"Outlier")
+#arrows(2.0,1.79,1.24,1.79);text(2.5,1.79,"first quartile")
+#arrows(2.0,2.17,1.24,2.17);text(2.5,2.17,"third quartile")
+#arrows(2.0,1.27,1.24,1.27);text(2.5,1.27,"lower wisker")
+#arrows(2.0,2.59,1.24,2.59);text(2.5,2.59,"upper wisker")
+#dev.copy2eps(device=x11,file="BoxplotWithExplanation.eps")
+#boxplot.stats(x, coef = 1.5, do.conf = TRUE, do.out = TRUE)
+
+
+```
+6. Box-and-wiskers plot of persons of Golub et al. (1999) data.
+(a) Use boxplot(data.frame(golub)) to produce a box-and-wiskers
+plot for each column (person). Make a screen shot to save it in
+a word processor. Describe what you see. Are the medians of
+similar size? Is the inter quartile range more or less equal. Are
+there outliers?
+
+Medians are all around zero. Interquartile Range differs just slightly, the minimal values are all around minus 1.5, all persons have outliers near to 3
+
+
+(b) Compute the mean and medians of the persons. What do you
+observe?
+(c) Compute the range (minimal and maximum value) of the standard
+deviations, the IQR and MAD of the persons. Comment of what
+you observe.
+```{r Task 6}
+#a)====
+golub_persons <- data.frame(golub)
+boxplot(golub_persons)
+median_persons<- apply(golub_persons,2, median)
+mean_persons<- apply(golub_persons,2, mean)
+median_persons
+mean_persons
+
+
+```
+7. Oncogenes of Golub et al. (1999) data.
+(a) Select the oncogens by the grep facility and produce a box-and-
+wiskers plot of the gene expressions of the ALL patients.
+(b) Do the same for the AML patients and use par(mfrow=c(2,1))
+to combine the two plots such that the second is beneath the first.
+Are there genes with clear differences between the groups?
+```{r Task 7}
+
+```
+8. Descriptive statistics for the ALL gene expression values of the Golub
+et al. (1999) data.
+(a) Compute the mean and median for gene expression values of the
+ALL patients, report their range and comment on it.
+(b) Compute the SD, IQR, and MAD for gene expression values of
+the ALL patients, report their range and comment on it.
+```{r Task 8}
+
+```
