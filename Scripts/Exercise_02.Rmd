@@ -186,13 +186,21 @@ observe?
 deviations, the IQR and MAD of the persons. Comment of what
 you observe.
 ```{r Task 6}
+library(ALL)
+data(golub, package = "multtest")
 #a)====
 golub_persons <- data.frame(golub)
 boxplot(golub_persons)
+#b)====
 median_persons<- apply(golub_persons,2, median)
 mean_persons<- apply(golub_persons,2, mean)
 median_persons
 mean_persons
+#c)====
+range(apply(golub_persons,2,sd))
+#Daran denken, dass IQR *(Interquartile Range IQ = UPPER QUARTILE - LOWER QUARTILE) is approximately 1.349 times the standard deviation 
+range(apply(golub_persons, 2, function(x)IQR(x)/1.349))
+range(apply(golub_persons, 2, mad))
 
 
 ```
@@ -202,7 +210,29 @@ wiskers plot of the gene expressions of the ALL patients.
 (b) Do the same for the AML patients and use par(mfrow=c(2,1))
 to combine the two plots such that the second is beneath the first.
 Are there genes with clear differences between the groups?
+
+Yes there are some enourmus differences . 
 ```{r Task 7}
+#a)==== Musterloesung ====
+data(golub, package="multtest")
+gol.fac <- factor(golub.cl,levels=0:1, labels= c("ALL","AML"))
+rowindex <- agrep("^oncogene",golub.gnames[,2])
+length(rowindex)
+
+oncogol <- golub[rowindex,]
+oncogolub.gnames <- golub.gnames[rowindex,]
+row.names(oncogol) <- oncogolub.gnames[,3]
+dim(oncogenes)
+#t to transpose matrix because columns and lines are distorted? I dont get it . 
+#par command to choose a layout of how the plots will be displayed 
+par(mfrow=c(2,1))
+
+boxplot(data.frame(t(oncogol[,gol.fac=="ALL"])))
+
+#b)====
+
+boxplot(data.frame(t(oncogol[,gol.fac=="AML"])))
+
 
 ```
 8. Descriptive statistics for the ALL gene expression values of the Golub

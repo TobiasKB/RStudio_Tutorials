@@ -1,52 +1,56 @@
 ---
 title: "R Notebook"
 output: html_notebook
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you
+execute code within the notebook, the results appear beneath the code.
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+Try executing this chunk by clicking the *Run* button within the chunk
+or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*.
 
 ```{r}
 
 data(golub)
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or
+by pressing *Ctrl+Alt+I*.
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+When you save the notebook, an HTML file containing the code and output
+will be saved alongside it (click the *Preview* button or press
+*Ctrl+Shift+K* to preview the HTML file).
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+The preview shows you a rendered HTML copy of the contents of the
+editor. Consequently, unlike *Knit*, *Preview* does not run any R code
+chunks. Instead, the output of the chunk when it was last run in the
+editor is displayed.
 
+1.  Some questions to orientate yourself.
 
-1. Some questions to orientate yourself.
-(a) Use the function class to find the class to which the follow-
-ing objects belong: golub, golub[1,1],golub.cl, golub.gnames,
-apply, exp, gol.fac, plot, ALL.
+<!-- -->
+
+(a) Use the function class to find the class to which the follow- ing
+    objects belong: golub, golub[1,1],golub.cl, golub.gnames, apply,
+    exp, gol.fac, plot, ALL.
+
 (b) What is the meaning of the following abbreviations: rm, sum, prod,
-seq, sd, nrow.
-rm = remove 
-sum = Gaußsche Summe
-prod = Fakultät
-seq = sequenz von x bis y
-sd = standard deviation (Standardabweichung)
-nrow = Zeilenanzahl einer Matrix
-
+    seq, sd, nrow. rm = remove sum = Gaußsche Summe prod = Fakultät seq
+    = sequenz von x bis y sd = standard deviation (Standardabweichung)
+    nrow = Zeilenanzahl einer Matrix
 
 (c) For what purpose are the following functions useful: grep, apply,
-gl, library, source, setwd, history, str.
+    gl, library, source, setwd, history, str.
 
-grep - get regex is true from the internet too
-apply - applies a function like a for loop on all values specified in matrix 
-gl - to simulate experimental data with #ofpatients and #ofcases
-library - to load a library into r
-source - make R read input from file or URL
-setwd - set or get working directory - i use here
-history - shows history of commands
-str - displays structure of an R object
-
-
-
+grep - get regex is true from the internet too apply - applies a
+function like a for loop on all values specified in matrix gl - to
+simulate experimental data with \#ofpatients and \#ofcases library - to
+load a library into r source - make R read input from file or URL setwd
+- set or get working directory - i use here history - shows history of
+commands str - displays structure of an R object
 
 ```{r}
 class(golub)
@@ -61,15 +65,16 @@ class(ALL)
 str(golub)
 ```
 
-2. gendat Consider the data in the matrix gendat, constructed in Sec-
-tion 1.6. Its small size has the advantage that you can check your
-computations even by a pocket calculator. 14
+2.  gendat Consider the data in the matrix gendat, constructed in Sec-
+    tion 1.6. Its small size has the advantage that you can check your
+    computations even by a pocket calculator. 14
+
+<!-- -->
+
 (a) Use apply to compute the standard deviation of the persons.
 (b) Use apply to compute the standard deviation of the genes.
 (c) Order the matrix according to the gene standard deviations.
-(d) Which gene has the largest standard deviation?
-gene 2
-
+(d) Which gene has the largest standard deviation? gene 2
 
 ```{r}
 gendat
@@ -82,11 +87,15 @@ gendat[o,]
 
 
 ```
-3. Computations on gene means of the Golub data.
+
+3.  Computations on gene means of the Golub data.
+
+<!-- -->
+
 (a) Use apply to compute the mean gene expression value.
 (b) Order the data matrix according to the gene means.
 (c) Give the names of the three genes with the largest mean expression
-value.
+    value.
 (d) Give the biological names of these genes.
 
 ```{r}
@@ -97,13 +106,18 @@ golub.gnames[o[1:3],3]
 golub.gnames[o[1:3],2]
 
 ```
-4. Computations on gene standard deviations of the Golub data.
-(a) Use apply to compute the standard deviation per gene.
-(b) Select the expression values of the genes with standard deviation
-larger than two.
 
-(c) How many genes have this property?
-14562
+4.  Computations on gene standard deviations of the Golub data.
+
+<!-- -->
+
+(a) Use apply to compute the standard deviation per gene.
+
+(b) Select the expression values of the genes with standard deviation
+    larger than two.
+
+(c) How many genes have this property? 14562
+
 ```{r}
 sd_golub <- apply(golub, 1, sd)
 sd_golub_2 <- golub[sd_golub>0.5]
@@ -111,17 +125,18 @@ sd_golub_2
 sum(sd_golub_2>0.5)
 ```
 
-5. Oncogenes in Golub data.
-(a) How many oncogenes are there in the dataset? Hint: Use grep.
-42
-(b) Find the biological names of the three oncogenes with the largest
-mean expression value for the ALL patients.
-"AB002318_at" "D26579_at"   "L22342_at" 
-(c) Do the same for the AML patients.
- "X03689_s_at"        "D49824_s_at"        "HG1428-HT1428_s_at"
-(d) Write the gene probe ID and the gene names of the ten genes with
-largest mean gene expression value to a csv file
+5.  Oncogenes in Golub data.
 
+<!-- -->
+
+(a) How many oncogenes are there in the dataset? Hint: Use grep. 42
+(b) Find the biological names of the three oncogenes with the largest
+    mean expression value for the ALL patients. "AB002318_at"
+    "D26579_at" "L22342_at"
+(c) Do the same for the AML patients. "X03689_s\_at" "D49824_s\_at"
+    "HG1428-HT1428_s\_at"
+(d) Write the gene probe ID and the gene names of the ten genes with
+    largest mean gene expression value to a csv file
 
 ```{r}
 grep("onco", golub.gnames[,2])
@@ -166,11 +181,16 @@ write.table(x,file="goluboutnorowname",row.names=FALSE)
 
 
 ```
-6. Constructing a factor. Construct factors that correspond to the follow-
-ing setting.
+
+6.  Constructing a factor. Construct factors that correspond to the
+    follow- ing setting.
+
+<!-- -->
+
 (a) An experiment with two conditions each with four measurements.
 (b) Five conditions each with three measurements.
 (c) Three conditions each with five measurements.
+
 ```{r}
 factor_2_4 <- gl(2,4)
 factor_5_3 <- gl(5,3)
@@ -178,15 +198,18 @@ factor_3_5 <- gl(3,5)
 
 
 ```
-7. Gene means for B1 patients. Load the ALL data from the ALL library
-and use str and openVignette() for a further orientation.
-(a) Use exprs(ALL[,ALL$BT=="B1"] to extract the gene expressions
-from the patients in disease stage B1. Compute the mean gene
-expressions over these patients.
-(b) Give the gene identifiers of the three genes with the largest mean.
-AFFX-hum_alu_at
-31962_at       
-31957_r_at     
+
+7.  Gene means for B1 patients. Load the ALL data from the ALL library
+    and use str and openVignette() for a further orientation.
+
+    a) Use exprs(ALL[,ALL\$BT=="B1"] to extract the gene expressions
+    from the patients in disease stage B1. Compute the mean gene
+    expressions over these patients.
+
+    b) Give the gene identifiers of the three genes with the largest
+    mean. AFFX-hum_alu_at 31962_at\
+    31957_r\_at\
+
 ```{r}
 library(ALL)
 #library(openVignette)
