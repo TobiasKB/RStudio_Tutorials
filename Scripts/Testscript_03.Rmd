@@ -1,0 +1,37 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+Choose(x,y) Function: Probability that out of x, y are true with binomial coefficient
+
+For a binomially distributed variable np is the mean, np(1 − p) the variance, and squareRoot(np(1 − p)) the standard deviation.
+#build in function
+dbinom(k,n,p)
+distribution function which gives the cumulative probabilities:
+pbinom(k,n,p)
+
+```{r}
+library(TeachingDemos)
+
+vis.binom()
+
+choose(3,1)*0.25^1*0.75^2
+
+for (k in 0:3) print(dbinom(k,3,0.25))
+
+pbinom(2,3,0.25)
+
+#plotting the binomial distribution and the cumulative properties (density)====
+x<-0:22
+plot(x, dbinom(x, size=22,prob=.7),type="h")
+
+```
+Example 3. RNA consists of a sequence of nucleotides A, G, U, and C,
+where the first two are purines and the last two are pyrimidines. Suppose, for
+the purpose of illustration, that the length of a certain micro RNA is 22, that
+the probability of a purine equals 0.7, and that the process of placing purines
+and pyrimidines is binomially distributed. The event that our microRNA
+contains 14 purines can be represented by X = 14. The probability of this
+event can be computed by Paper Site 32
+

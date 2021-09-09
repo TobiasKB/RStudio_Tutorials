@@ -211,7 +211,19 @@ wiskers plot of the gene expressions of the ALL patients.
 to combine the two plots such that the second is beneath the first.
 Are there genes with clear differences between the groups?
 
-Yes there are some enourmus differences . 
+Yes. 
+
+Musterloesung:
+The plot gives a nice overview of the distributions of the gene
+expressions values of the onco gene separately for the ALL and
+the AML patients. Several genes behave similarly for ALL and
+AML. Some are clearly distributed around zero, but others not.
+Also, some have a small inter quartile ranges, while for others
+this is large. A similar statement holds for outliers, some do not
+have outliers, but others certainly have. Some gene show distinct
+distributions between patient groups. For instance, the sixth has
+ALL expressions around zero, but those for AML are larger than
+zero.
 ```{r Task 7}
 #a)==== Musterloesung ====
 data(golub, package="multtest")
@@ -222,25 +234,66 @@ length(rowindex)
 oncogol <- golub[rowindex,]
 oncogolub.gnames <- golub.gnames[rowindex,]
 row.names(oncogol) <- oncogolub.gnames[,3]
-dim(oncogenes)
 #t to transpose matrix because columns and lines are distorted? I dont get it . 
 #par command to choose a layout of how the plots will be displayed 
 par(mfrow=c(2,1))
 
 boxplot(data.frame(t(oncogol[,gol.fac=="ALL"])))
-
+title("Box and whiskers plot for oncogenes of ALL patients")
 #b)====
 
 boxplot(data.frame(t(oncogol[,gol.fac=="AML"])))
-
+title("Box and whiskers plot for oncogenes of AML patients")
 
 ```
 8. Descriptive statistics for the ALL gene expression values of the Golub
 et al. (1999) data.
 (a) Compute the mean and median for gene expression values of the
 ALL patients, report their range and comment on it.
+
+My Answer: The range of both varies highly, the mean:
+
+[1] -1.330984  3.278551
+
+The median: 
+
+[1] -1.36832  3.35455
+
+But mean and median show similarities in range towards another, which indicates a 
+symmetric distribution of data
+
+
 (b) Compute the SD, IQR, and MAD for gene expression values of
 the ALL patients, report their range and comment on it.
 ```{r Task 8}
+library(dplyr)
+#a)====
+data(golub, package="multtest")
+gol.fac <- factor(golub.cl,levels=0:1, labels= c("ALL","AML"))
+all_mean <- apply(golub[,gol.fac=="ALL"],1,mean)
+all_median <- apply(golub[,gol.fac=="ALL"],1,median)
+all_mean
+all_median
+range(all_mean)
+range(all_median)
 
+par(mfrow=c(2,2))
+
+stripchart(all_mean, method="jitter")
+title("stripchart of all_mean")
+stripchart(all_median, method="jitter")
+title("stripchart of all_median")
+hist(all_mean)
+hist(all_median)
+
+#b)====
+
+all_sd<-apply(golub[,gol.fac=="ALL"],1, sd) 
+range(all_sd)
+all_iqr<-apply(golub[,gol.fac=="ALL"],1, IQR)
+range(all_iqr)
+all_mad<-apply(golub[,gol.fac=="ALL"],1, mad)
+range(all_mad)
+
+hist()
 ```
