@@ -230,9 +230,94 @@ pre code {
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Example 3. RNA consists of a sequence of nucleotides A, G, U, and C, where the first two are purines and the last two are pyrimidines. Suppose, for the purpose of illustration, that the length of a certain micro RNA is 22, that the probability of a purine equals 0.7, and that the process of placing purines and pyrimidines is binomially distributed. The event that our microRNA contains 14 purines can be represented by X = 14. The probability of this event can be computed by Paper Site 32</p>
+<p>By the first line the sequence of integers {1, 2, · · · , 22} is constructed and by the second the density function is plotted, where the argument h specifies pins. From Figure 3.1 it can be observed that the largest probabilities oc- cur near the expectation 15.4. The graph in Figure 3.2 illustrates that the distribution is an increasing step function, with x on the horizontal axis and P (X ≤ x) on the vertical. A random sample of size 1000 from the binomial distribution with n = 22 and p = 0.7 can be drawn by the command rbinom(1000,22,0.7). This simulates the number of purines in 1000 microRNA’s each with purine prob- ability equal to 0.7 and length 22.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3Bsb3R0aW5nIHRoZSBiaW5vbWlhbCBkaXN0cmlidXRpb24gYW5kIHRoZSBjdW11bGF0aXZlIHByb3BlcnRpZXMgKGRlbnNpdHkpPT09PVxueDwtMDoyMlxucGxvdCh4LCBkYmlub20oeCwgc2l6ZT0yMixwcm9iPS43KSx0eXBlPVwiaFwiKVxuXG5gYGAifQ== -->
+<pre class="r"><code>#plotting the binomial distribution and the cumulative properties (density)====
+x&lt;-0:22
+plot(x, dbinom(x, size=22,prob=.7),type=&quot;h&quot;)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudmlzLnQoKVxuXG5gYGAifQ== -->
+<pre class="r"><code>vis.t()
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiPFRjbD4gIFxuIn0= -->
+<pre><code>&lt;Tcl&gt;  </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShtdWx0dGVzdCk7IGRhdGEoZ29sdWIpXG5nb2wuZmFjIDwtIGZhY3Rvcihnb2x1Yi5jbCxsZXZlbHM9MDoxLCBsYWJlbHM9IGMoXCJBTExcIixcIkFNTFwiKSlcbnggPC0gZ29sdWJbMTA0Mixnb2wuZmFjPT1cIkFMTFwiXVxueiA8LSAoeC0xLjkwKS8wLjUwXG5zdW0oel4yKVxuYGBgIn0= -->
+<pre class="r"><code>library(multtest); data(golub)
+gol.fac &lt;- factor(golub.cl,levels=0:1, labels= c(&quot;ALL&quot;,&quot;AML&quot;))
+x &lt;- golub[1042,gol.fac==&quot;ALL&quot;]
+z &lt;- (x-1.90)/0.50
+sum(z^2)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI1LjAzMzEyXG4ifQ== -->
+<pre><code>[1] 25.03312</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0NoaS1TcXVhcmUgRGlzdHJpYnV0aW9uID09PT1cbnBjaGlzcShzdW0oel4yKSwyNywgbG93ZXIudGFpbD1GQUxTRSlcbmBgYCJ9 -->
+<pre class="r"><code>#Chi-Square Distribution ====
+pchisq(sum(z^2),27, lower.tail=FALSE)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNTcyNjA1OVxuIn0= -->
+<pre><code>[1] 0.5726059</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI3QtRGlzdHJpYnV0aW9uPT09PVxubiA8LSAxMVxueCA8LSBnb2x1YlsyMDU4LCBnb2wuZmFjPT1cIkFNTFwiXVxudC52YWx1ZSA8LSBzcXJ0KG4pKihtZWFuKHgpLTApL3NkKHgpXG50LnZhbHVlXG5gYGAifQ== -->
+<pre class="r"><code>#t-Distribution====
+n &lt;- 11
+x &lt;- golub[2058, gol.fac==&quot;AML&quot;]
+t.value &lt;- sqrt(n)*(mean(x)-0)/sd(x)
+t.value</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEuMjM2MzI0XG4ifQ== -->
+<pre><code>[1] 1.236324</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucXQoMC4wMjUsbi0xKVxuYGBgIn0= -->
+<pre class="r"><code>qt(0.025,n-1)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIC0yLjIyODEzOVxuIn0= -->
+<pre><code>[1] -2.228139</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0ZEaXN0cmlidXRpb249PT09XG52YXIoZ29sdWJbMTA0Mixnb2wuZmFjPT1cIkFMTFwiXSkvdmFyKGdvbHViWzEwNDIsZ29sLmZhYz09XCJBTUxcIl0pXG5gYGAifQ== -->
+<pre class="r"><code>#FDistribution====
+var(golub[1042,gol.fac==&quot;ALL&quot;])/var(golub[1042,gol.fac==&quot;AML&quot;])</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuNzExNjQ0MVxuIn0= -->
+<pre><code>[1] 0.7116441</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucWYoLjAyNSwyNiwxMClcbmBgYCJ9 -->
+<pre class="r"><code>qf(.025,26,10)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDAuMzg2MTY3M1xuIn0= -->
+<pre><code>[1] 0.3861673</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1Bsb3R0aW5nIGRlbnNpdHkgZnVuY3Rpb24gPT09PVxuZjwtZnVuY3Rpb24oeCl7ZG5vcm0oeCwxLjksMC41KX1cbnBsb3QoZiwwLDQseGxhYj1cIngtYXhpc1wiLHlsYWI9XCJkZW5zaXR5IGYoeClcIilcblxucGxvdChmLDAsNCx4bGFiPVwieC1heGlzXCIseWxhYj1cImRlbnNpdHkgZih4KVwiKVxuYGBgIn0= -->
+<pre class="r"><code>#Plotting density function ====
+f&lt;-function(x){dnorm(x,1.9,0.5)}
+plot(f,0,4,xlab=&quot;x-axis&quot;,ylab=&quot;density f(x)&quot;)
+
+plot(f,0,4,xlab=&quot;x-axis&quot;,ylab=&quot;density f(x)&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueDwtc2VxKDAsMS40LDAuMDEpXG5wb2x5Z29uKGMoMCx4LDEuNCksIGMoMCxmKHgpLDApLCBjb2w9XCJsaWdodGJsdWVcIilcblxuYGBgIn0= -->
+<pre class="r"><code>x&lt;-seq(0,1.4,0.01)
+polygon(c(0,x,1.4), c(0,f(x),0), col=&quot;lightblue&quot;)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>For practical computations R has built-in-functions for the binomial, normal, t, F, χ 2 -distributions, where d stands for density, p for (cumulative) prob- ability distribution, q for quantiles, and r for drawing random samples.</p>
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKQ2hvb3NlKHgseSkgRnVuY3Rpb246IFByb2JhYmlsaXR5IHRoYXQgb3V0IG9mIHgsIHkgYXJlIHRydWUgd2l0aCBiaW5vbWlhbCBjb2VmZmljaWVudAoKRm9yIGEgYmlub21pYWxseSBkaXN0cmlidXRlZCB2YXJpYWJsZSBucCBpcyB0aGUgbWVhbiwgbnAoMSDiiJIgcCkgdGhlIHZhcmlhbmNlLCBhbmQgc3F1YXJlUm9vdChucCgxIOKIkiBwKSkgdGhlIHN0YW5kYXJkIGRldmlhdGlvbi4KI2J1aWxkIGluIGZ1bmN0aW9uCmRiaW5vbShrLG4scCkKZGlzdHJpYnV0aW9uIGZ1bmN0aW9uIHdoaWNoIGdpdmVzIHRoZSBjdW11bGF0aXZlIHByb2JhYmlsaXRpZXM6CnBiaW5vbShrLG4scCkKCmBgYHtyfQpsaWJyYXJ5KFRlYWNoaW5nRGVtb3MpCgp2aXMuYmlub20oKQoKY2hvb3NlKDMsMSkqMC4yNV4xKjAuNzVeMgoKZm9yIChrIGluIDA6MykgcHJpbnQoZGJpbm9tKGssMywwLjI1KSkKCnBiaW5vbSgyLDMsMC4yNSkKCiNwbG90dGluZyB0aGUgYmlub21pYWwgZGlzdHJpYnV0aW9uIGFuZCB0aGUgY3VtdWxhdGl2ZSBwcm9wZXJ0aWVzIChkZW5zaXR5KT09PT0KeDwtMDoyMgpwbG90KHgsIGRiaW5vbSh4LCBzaXplPTIyLHByb2I9LjcpLHR5cGU9ImgiKQoKYGBgCkV4YW1wbGUgMy4gUk5BIGNvbnNpc3RzIG9mIGEgc2VxdWVuY2Ugb2YgbnVjbGVvdGlkZXMgQSwgRywgVSwgYW5kIEMsCndoZXJlIHRoZSBmaXJzdCB0d28gYXJlIHB1cmluZXMgYW5kIHRoZSBsYXN0IHR3byBhcmUgcHlyaW1pZGluZXMuIFN1cHBvc2UsIGZvcgp0aGUgcHVycG9zZSBvZiBpbGx1c3RyYXRpb24sIHRoYXQgdGhlIGxlbmd0aCBvZiBhIGNlcnRhaW4gbWljcm8gUk5BIGlzIDIyLCB0aGF0CnRoZSBwcm9iYWJpbGl0eSBvZiBhIHB1cmluZSBlcXVhbHMgMC43LCBhbmQgdGhhdCB0aGUgcHJvY2VzcyBvZiBwbGFjaW5nIHB1cmluZXMKYW5kIHB5cmltaWRpbmVzIGlzIGJpbm9taWFsbHkgZGlzdHJpYnV0ZWQuIFRoZSBldmVudCB0aGF0IG91ciBtaWNyb1JOQQpjb250YWlucyAxNCBwdXJpbmVzIGNhbiBiZSByZXByZXNlbnRlZCBieSBYID0gMTQuIFRoZSBwcm9iYWJpbGl0eSBvZiB0aGlzCmV2ZW50IGNhbiBiZSBjb21wdXRlZCBieSBQYXBlciBTaXRlIDMyCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKQ2hvb3NlKHgseSkgRnVuY3Rpb246IFByb2JhYmlsaXR5IHRoYXQgb3V0IG9mIHgsIHkgYXJlIHRydWUgd2l0aCBiaW5vbWlhbCBjb2VmZmljaWVudAoKRm9yIGEgYmlub21pYWxseSBkaXN0cmlidXRlZCB2YXJpYWJsZSBucCBpcyB0aGUgbWVhbiwgbnAoMSDiiJIgcCkgdGhlIHZhcmlhbmNlLCBhbmQgc3F1YXJlUm9vdChucCgxIOKIkiBwKSkgdGhlIHN0YW5kYXJkIGRldmlhdGlvbi4KI2J1aWxkIGluIGZ1bmN0aW9uCmRiaW5vbShrLG4scCkKZGlzdHJpYnV0aW9uIGZ1bmN0aW9uIHdoaWNoIGdpdmVzIHRoZSBjdW11bGF0aXZlIHByb2JhYmlsaXRpZXM6CnBiaW5vbShrLG4scCkKCmBgYHtyfQpsaWJyYXJ5KFRlYWNoaW5nRGVtb3MpCgp2aXMuYmlub20oKQoKY2hvb3NlKDMsMSkqMC4yNV4xKjAuNzVeMgoKZm9yIChrIGluIDA6MykgcHJpbnQoZGJpbm9tKGssMywwLjI1KSkKCnBiaW5vbSgyLDMsMC4yNSkKCgpgYGAKRXhhbXBsZSAzLiBSTkEgY29uc2lzdHMgb2YgYSBzZXF1ZW5jZSBvZiBudWNsZW90aWRlcyBBLCBHLCBVLCBhbmQgQywKd2hlcmUgdGhlIGZpcnN0IHR3byBhcmUgcHVyaW5lcyBhbmQgdGhlIGxhc3QgdHdvIGFyZSBweXJpbWlkaW5lcy4gU3VwcG9zZSwgZm9yCnRoZSBwdXJwb3NlIG9mIGlsbHVzdHJhdGlvbiwgdGhhdCB0aGUgbGVuZ3RoIG9mIGEgY2VydGFpbiBtaWNybyBSTkEgaXMgMjIsIHRoYXQKdGhlIHByb2JhYmlsaXR5IG9mIGEgcHVyaW5lIGVxdWFscyAwLjcsIGFuZCB0aGF0IHRoZSBwcm9jZXNzIG9mIHBsYWNpbmcgcHVyaW5lcwphbmQgcHlyaW1pZGluZXMgaXMgYmlub21pYWxseSBkaXN0cmlidXRlZC4gVGhlIGV2ZW50IHRoYXQgb3VyIG1pY3JvUk5BCmNvbnRhaW5zIDE0IHB1cmluZXMgY2FuIGJlIHJlcHJlc2VudGVkIGJ5IFggPSAxNC4gVGhlIHByb2JhYmlsaXR5IG9mIHRoaXMKZXZlbnQgY2FuIGJlIGNvbXB1dGVkIGJ5IFBhcGVyIFNpdGUgMzIKCkJ5IHRoZSBmaXJzdCBsaW5lIHRoZSBzZXF1ZW5jZSBvZiBpbnRlZ2VycyB7MSwgMiwgwrcgwrcgwrcgLCAyMn0gaXMgY29uc3RydWN0ZWQgYW5kIGJ5CnRoZSBzZWNvbmQgdGhlIGRlbnNpdHkgZnVuY3Rpb24gaXMgcGxvdHRlZCwgd2hlcmUgdGhlIGFyZ3VtZW50IGggc3BlY2lmaWVzCnBpbnMuIEZyb20gRmlndXJlIDMuMSBpdCBjYW4gYmUgb2JzZXJ2ZWQgdGhhdCB0aGUgbGFyZ2VzdCBwcm9iYWJpbGl0aWVzIG9jLQpjdXIgbmVhciB0aGUgZXhwZWN0YXRpb24gMTUuNC4gVGhlIGdyYXBoIGluIEZpZ3VyZSAzLjIgaWxsdXN0cmF0ZXMgdGhhdCB0aGUKZGlzdHJpYnV0aW9uIGlzIGFuIGluY3JlYXNpbmcgc3RlcCBmdW5jdGlvbiwgd2l0aCB4IG9uIHRoZSBob3Jpem9udGFsIGF4aXMgYW5kClAgKFgg4omkIHgpIG9uIHRoZSB2ZXJ0aWNhbC4KQSByYW5kb20gc2FtcGxlIG9mIHNpemUgMTAwMCBmcm9tIHRoZSBiaW5vbWlhbCBkaXN0cmlidXRpb24gd2l0aCBuID0gMjIKYW5kIHAgPSAwLjcgY2FuIGJlIGRyYXduIGJ5IHRoZSBjb21tYW5kIHJiaW5vbSgxMDAwLDIyLDAuNykuIFRoaXMKc2ltdWxhdGVzIHRoZSBudW1iZXIgb2YgcHVyaW5lcyBpbiAxMDAwIG1pY3JvUk5B4oCZcyBlYWNoIHdpdGggcHVyaW5lIHByb2ItCmFiaWxpdHkgZXF1YWwgdG8gMC43IGFuZCBsZW5ndGggMjIuCmBgYHtyfQojcGxvdHRpbmcgdGhlIGJpbm9taWFsIGRpc3RyaWJ1dGlvbiBhbmQgdGhlIGN1bXVsYXRpdmUgcHJvcGVydGllcyAoZGVuc2l0eSk9PT09Cng8LTA6MjIKcGxvdCh4LCBkYmlub20oeCwgc2l6ZT0yMixwcm9iPS43KSx0eXBlPSJoIikKCmBgYAoKYGBge3J9CmxpYnJhcnkoVGVhY2hpbmdEZW1vcykKdmlzLm5vcm1hbCgpCnZpcy50KCkKcGNoaXNxKDgsNSkKCnFjaGlzcSgwLjAyNSwgNSwgbG93ZXIudGFpbD1UUlVFKQpgYGAKCgpgYGB7cn0KbGlicmFyeShtdWx0dGVzdCk7IGRhdGEoZ29sdWIpCmdvbC5mYWMgPC0gZmFjdG9yKGdvbHViLmNsLGxldmVscz0wOjEsIGxhYmVscz0gYygiQUxMIiwiQU1MIikpCnggPC0gZ29sdWJbMTA0Mixnb2wuZmFjPT0iQUxMIl0KeiA8LSAoeC0xLjkwKS8wLjUwCnN1bSh6XjIpCiNDaGktU3F1YXJlIERpc3RyaWJ1dGlvbiA9PT09CnBjaGlzcShzdW0oel4yKSwyNywgbG93ZXIudGFpbD1GQUxTRSkKI3QtRGlzdHJpYnV0aW9uPT09PQpuIDwtIDExCnggPC0gZ29sdWJbMjA1OCwgZ29sLmZhYz09IkFNTCJdCnQudmFsdWUgPC0gc3FydChuKSoobWVhbih4KS0wKS9zZCh4KQp0LnZhbHVlCnF0KDAuMDI1LG4tMSkKCiNGRGlzdHJpYnV0aW9uPT09PQp2YXIoZ29sdWJbMTA0Mixnb2wuZmFjPT0iQUxMIl0pL3Zhcihnb2x1YlsxMDQyLGdvbC5mYWM9PSJBTUwiXSkKcWYoLjAyNSwyNiwxMCkKCiNQbG90dGluZyBkZW5zaXR5IGZ1bmN0aW9uID09PT0KZjwtZnVuY3Rpb24oeCl7ZG5vcm0oeCwxLjksMC41KX0KcGxvdChmLDAsNCx4bGFiPSJ4LWF4aXMiLHlsYWI9ImRlbnNpdHkgZih4KSIpCgpwbG90KGYsMCw0LHhsYWI9IngtYXhpcyIseWxhYj0iZGVuc2l0eSBmKHgpIikKeDwtc2VxKDAsMS40LDAuMDEpCnBvbHlnb24oYygwLHgsMS40KSwgYygwLGYoeCksMCksIGNvbD0ibGlnaHRibHVlIikKCmBgYApGb3IgcHJhY3RpY2FsIGNvbXB1dGF0aW9ucyBSIGhhcyBidWlsdC1pbi1mdW5jdGlvbnMgZm9yIHRoZSBiaW5vbWlhbCwgbm9ybWFsLAp0LCBGLCDPhyAyIC1kaXN0cmlidXRpb25zLCB3aGVyZSBkIHN0YW5kcyBmb3IgZGVuc2l0eSwgcCBmb3IgKGN1bXVsYXRpdmUpIHByb2ItCmFiaWxpdHkgZGlzdHJpYnV0aW9uLCBxIGZvciBxdWFudGlsZXMsIGFuZCByIGZvciBkcmF3aW5nIHJhbmRvbSBzYW1wbGVzLgo=</div>
 
 
 

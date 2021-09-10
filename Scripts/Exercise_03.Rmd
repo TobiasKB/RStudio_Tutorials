@@ -2,17 +2,118 @@
 title: "R Notebook"
 output: html_notebook
 ---
-
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
-
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+1. Binomial Let X be binomially distributed with n = 60 and p = 0.4.
+Compute the following.
+(a) P (X = 24), P (X ≤ 24), and P (X ≥ 30).
+(b) P (20 ≤ X ≤ 30), P (20 ≤ X).
+(c) P (20 ≤ X or X ≥ 40), and P (20 ≤ X and X ≥ 10).
+(d) Compute the mean and standard deviation of X.
+(e) The quantiles x 0.025 , x 0.5 , and x 0.975 .
 
 ```{r}
-plot(cars)
+
+
+
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+2. Standard Normal. Compute the following probabilities and quantiles.
+(a) P (1.6 < Z < 2.3).
+(b) P (Z < 1.64).
+(c) P (−1.64 < Z < −1.02).
+(d) P (0 < Z < 1.96).
+(e) P (−1.96 < Z < 1.96).
+(f) The quantiles z 0.025 , z 0.05 , z 0.5 , z 0.95 , and z 0.975 .
+```{r}
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+```
+Normal. Compute for X distributed as N (10, 2) the following proba-
+bilities and quantiles.
+a) P (X < 12).
+(b) P (X > 8).
+(c) P (9 < X < 10, 5).
+(d) The quantiles x 0.025 , x 0.5 , and x 0.975 .
+```{r}
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+```
+T -distribution. Verify the following computations for the T 6 distribu-
+tion.
+(a) P (T 6 < 1).
+(b) P (T 6 > 2).
+(c) P (−1 < T 6 < 1).
+(d) P (−2 < T 6 < −2).
+(e) The quantiles t 0.025 , t 0.5 , and t 0.975 .
+```{r}
+
+```
+F distribution. Compute the following probabilities and quantiles for
+the F 8,5 distribution.
+(a) P (F 8,5 < 3).
+(b) P (F 8,5 > 4).
+(c) P (1 < F 8,5 < 6).
+(d) The quantiles f 0.025 , f 0.5 , and f 0.975 .
+```{r}
+
+```
+Chi-squared distribution. Compute the following for the chi-squared
+distribution with 10 degrees of freedom.
+(a) P (χ 210 < 3).
+(b) P (χ 210 > 4).
+(c) P (1 < χ 210 < 6).
+(d) The quantiles g 0.025 , g 0.5 , and g 0.975 .
+```{r}
+
+```
+MicroRNA. Suppose that for certain microRNA of size 20 the proba-
+bility of a purine is binomially distributed with probability 0.7.
+(a) What is the probability of 14 purines?
+(b) What is the probability of less than or equal to 14 purines?
+(c) What is the probability of strictly more than 10 purines?
+(d) By what probability is of the number of purines between 10 and
+15?
+(e) How many purines do you expect? In other words: What is the
+mean of the distribution?
+(f) What is the standard deviation of the distribution?
+```{r}
+
+```
+Zyxin. The distribution of the expression values of the ALL patients
+on the Zyxin gene are distributed according to N (1.6, 0.4 2 ).
+(a) Compute the probability that the expression values are smaller
+than 1.2?
+(b) What is the probability that the expression values are between 1.2
+and 2.0?
+(c) What is the probability that the expression values are between 0.8
+and 2.4?
+(d) Compute the exact values for the quantiles x 0.025 and x 0.975 .
+(e) Use rnorm to draw a sample of size 1000 from the population and
+compare the sample mean and standard deviation with that of the
+population.
+```{r}
+
+```
+Some computations on Golub et al. (1999) data.
+(a) Take µ = 0 and compute the t-values for the ALL gene expression
+values. Find the three genes with largest absolute t-values.
+(b) Compute per gene the ratio of the variances for the ALL and the
+AML patients. How many are between 0.5 and 1.5?
+```{r}
+
+```
+Extreme value investigation. This (difficult!) question aims to teach
+the essence of an extreme value distribution! An interesting extreme
+value distribution is given by Pevsner (2003, p.103). Take the maximum
+of a sample (with size 1000) from the standard normal distribution and
+repeat this 1000 times. So that you sampled 1000 maxima. Next,
+subtract from these maxima an and divide by bn, where
+```{r}
+an <- sqrt(2*log(n)) - 0.5*(log(log(n))+log(4*pi))*(2*log(n))^(-1/2)
+bn <- (2*log(n))^(-1/2)
+
+
+```
+Now plot the density from the normalized maxima and add the extreme
+value function f (x) from Pevsner his book, and add the density (dnorm)
+from the normal distribution. What do you observe?
+```{r}
+
+```

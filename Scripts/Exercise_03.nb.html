@@ -215,21 +215,86 @@ pre code {
 
 
 <!-- rnb-text-begin -->
-<p>This is an <a href="http://rmarkdown.rstudio.com">R Markdown</a> Notebook. When you execute code within the notebook, the results appear beneath the code.</p>
-<p>Try executing this chunk by clicking the <em>Run</em> button within the chunk or by placing your cursor inside it and pressing <em>Ctrl+Shift+Enter</em>.</p>
+<ol style="list-style-type: decimal">
+<li>Binomial Let X be binomially distributed with n = 60 and p = 0.4. Compute the following.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>P (X = 24), P (X ≤ 24), and P (X ≥ 30).</li>
+<li>P (20 ≤ X ≤ 30), P (20 ≤ X).</li>
+<li>P (20 ≤ X or X ≥ 40), and P (20 ≤ X and X ≥ 10).</li>
+<li>Compute the mean and standard deviation of X.</li>
+<li>The quantiles x 0.025 , x 0.5 , and x 0.975 .</li>
+</ol>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucGxvdChjYXJzKVxuYGBgIn0= -->
-<pre class="r"><code>plot(cars)</code></pre>
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="2" style="list-style-type: decimal">
+<li>Standard Normal. Compute the following probabilities and quantiles.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>P (1.6 &lt; Z &lt; 2.3).</li>
+<li>P (Z &lt; 1.64).</li>
+<li>P (−1.64 &lt; Z &lt; −1.02).</li>
+<li>P (0 &lt; Z &lt; 1.96).</li>
+<li>P (−1.96 &lt; Z &lt; 1.96).</li>
+<li>The quantiles z 0.025 , z 0.05 , z 0.5 , z 0.95 , and z 0.975 .</li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Normal. Compute for X distributed as N (10, 2) the following proba- bilities and quantiles. a) P (X &lt; 12). (b) P (X &gt; 8). (c) P (9 &lt; X &lt; 10, 5). (d) The quantiles x 0.025 , x 0.5 , and x 0.975 .</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>T -distribution. Verify the following computations for the T 6 distribu- tion. (a) P (T 6 &lt; 1). (b) P (T 6 &gt; 2). (c) P (−1 &lt; T 6 &lt; 1). (d) P (−2 &lt; T 6 &lt; −2). (e) The quantiles t 0.025 , t 0.5 , and t 0.975 .</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>F distribution. Compute the following probabilities and quantiles for the F 8,5 distribution. (a) P (F 8,5 &lt; 3). (b) P (F 8,5 &gt; 4). (c) P (1 &lt; F 8,5 &lt; 6). (d) The quantiles f 0.025 , f 0.5 , and f 0.975 .</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Chi-squared distribution. Compute the following for the chi-squared distribution with 10 degrees of freedom. (a) P (χ 210 &lt; 3). (b) P (χ 210 &gt; 4). (c) P (1 &lt; χ 210 &lt; 6). (d) The quantiles g 0.025 , g 0.5 , and g 0.975 .</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>MicroRNA. Suppose that for certain microRNA of size 20 the proba- bility of a purine is binomially distributed with probability 0.7. (a) What is the probability of 14 purines? (b) What is the probability of less than or equal to 14 purines? (c) What is the probability of strictly more than 10 purines? (d) By what probability is of the number of purines between 10 and 15? (e) How many purines do you expect? In other words: What is the mean of the distribution? (f) What is the standard deviation of the distribution?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Zyxin. The distribution of the expression values of the ALL patients on the Zyxin gene are distributed according to N (1.6, 0.4 2 ). (a) Compute the probability that the expression values are smaller than 1.2? (b) What is the probability that the expression values are between 1.2 and 2.0? (c) What is the probability that the expression values are between 0.8 and 2.4? (d) Compute the exact values for the quantiles x 0.025 and x 0.975 . (e) Use rnorm to draw a sample of size 1000 from the population and compare the sample mean and standard deviation with that of the population.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Some computations on Golub et al. (1999) data. (a) Take µ = 0 and compute the t-values for the ALL gene expression values. Find the three genes with largest absolute t-values. (b) Compute per gene the ratio of the variances for the ALL and the AML patients. How many are between 0.5 and 1.5?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Extreme value investigation. This (difficult!) question aims to teach the essence of an extreme value distribution! An interesting extreme value distribution is given by Pevsner (2003, p.103). Take the maximum of a sample (with size 1000) from the standard normal distribution and repeat this 1000 times. So that you sampled 1000 maxima. Next, subtract from these maxima an and divide by bn, where</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYW4gPC0gc3FydCgyKmxvZyhuKSkgLSAwLjUqKGxvZyhsb2cobikpK2xvZyg0KnBpKSkqKDIqbG9nKG4pKV4oLTEvMilcbmJuIDwtICgyKmxvZyhuKSleKC0xLzIpXG5cblxuYGBgIn0= -->
+<pre class="r"><code>an &lt;- sqrt(2*log(n)) - 0.5*(log(log(n))+log(4*pi))*(2*log(n))^(-1/2)
+bn &lt;- (2*log(n))^(-1/2)
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Add a new chunk by clicking the <em>Insert Chunk</em> button on the toolbar or by pressing <em>Ctrl+Alt+I</em>.</p>
-<p>When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the <em>Preview</em> button or press <em>Ctrl+Shift+K</em> to preview the HTML file).</p>
-<p>The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike <em>Knit</em>, <em>Preview</em> does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.</p>
+<p>Now plot the density from the normalized maxima and add the extreme value function f (x) from Pevsner his book, and add the density (dnorm) from the normal distribution. What do you observe?</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKVGhpcyBpcyBhbiBbUiBNYXJrZG93bl0oaHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbSkgTm90ZWJvb2suIFdoZW4geW91IGV4ZWN1dGUgY29kZSB3aXRoaW4gdGhlIG5vdGVib29rLCB0aGUgcmVzdWx0cyBhcHBlYXIgYmVuZWF0aCB0aGUgY29kZS4gCgpUcnkgZXhlY3V0aW5nIHRoaXMgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpSdW4qIGJ1dHRvbiB3aXRoaW4gdGhlIGNodW5rIG9yIGJ5IHBsYWNpbmcgeW91ciBjdXJzb3IgaW5zaWRlIGl0IGFuZCBwcmVzc2luZyAqQ3RybCtTaGlmdCtFbnRlciouIAoKYGBge3J9CnBsb3QoY2FycykKYGBgCgpBZGQgYSBuZXcgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpJbnNlcnQgQ2h1bmsqIGJ1dHRvbiBvbiB0aGUgdG9vbGJhciBvciBieSBwcmVzc2luZyAqQ3RybCtBbHQrSSouCgpXaGVuIHlvdSBzYXZlIHRoZSBub3RlYm9vaywgYW4gSFRNTCBmaWxlIGNvbnRhaW5pbmcgdGhlIGNvZGUgYW5kIG91dHB1dCB3aWxsIGJlIHNhdmVkIGFsb25nc2lkZSBpdCAoY2xpY2sgdGhlICpQcmV2aWV3KiBidXR0b24gb3IgcHJlc3MgKkN0cmwrU2hpZnQrSyogdG8gcHJldmlldyB0aGUgSFRNTCBmaWxlKS4KClRoZSBwcmV2aWV3IHNob3dzIHlvdSBhIHJlbmRlcmVkIEhUTUwgY29weSBvZiB0aGUgY29udGVudHMgb2YgdGhlIGVkaXRvci4gQ29uc2VxdWVudGx5LCB1bmxpa2UgKktuaXQqLCAqUHJldmlldyogZG9lcyBub3QgcnVuIGFueSBSIGNvZGUgY2h1bmtzLiBJbnN0ZWFkLCB0aGUgb3V0cHV0IG9mIHRoZSBjaHVuayB3aGVuIGl0IHdhcyBsYXN0IHJ1biBpbiB0aGUgZWRpdG9yIGlzIGRpc3BsYXllZC4K</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoxLiBCaW5vbWlhbCBMZXQgWCBiZSBiaW5vbWlhbGx5IGRpc3RyaWJ1dGVkIHdpdGggbiA9IDYwIGFuZCBwID0gMC40LgpDb21wdXRlIHRoZSBmb2xsb3dpbmcuCihhKSBQIChYID0gMjQpLCBQIChYIOKJpCAyNCksIGFuZCBQIChYIOKJpSAzMCkuCihiKSBQICgyMCDiiaQgWCDiiaQgMzApLCBQICgyMCDiiaQgWCkuCihjKSBQICgyMCDiiaQgWCBvciBYIOKJpSA0MCksIGFuZCBQICgyMCDiiaQgWCBhbmQgWCDiiaUgMTApLgooZCkgQ29tcHV0ZSB0aGUgbWVhbiBhbmQgc3RhbmRhcmQgZGV2aWF0aW9uIG9mIFguCihlKSBUaGUgcXVhbnRpbGVzIHggMC4wMjUgLCB4IDAuNSAsIGFuZCB4IDAuOTc1IC4KCmBgYHtyfQoKCgpgYGAKCjIuIFN0YW5kYXJkIE5vcm1hbC4gQ29tcHV0ZSB0aGUgZm9sbG93aW5nIHByb2JhYmlsaXRpZXMgYW5kIHF1YW50aWxlcy4KKGEpIFAgKDEuNiA8IFogPCAyLjMpLgooYikgUCAoWiA8IDEuNjQpLgooYykgUCAo4oiSMS42NCA8IFogPCDiiJIxLjAyKS4KKGQpIFAgKDAgPCBaIDwgMS45NikuCihlKSBQICjiiJIxLjk2IDwgWiA8IDEuOTYpLgooZikgVGhlIHF1YW50aWxlcyB6IDAuMDI1ICwgeiAwLjA1ICwgeiAwLjUgLCB6IDAuOTUgLCBhbmQgeiAwLjk3NSAuCmBgYHtyfQoKYGBgCk5vcm1hbC4gQ29tcHV0ZSBmb3IgWCBkaXN0cmlidXRlZCBhcyBOICgxMCwgMikgdGhlIGZvbGxvd2luZyBwcm9iYS0KYmlsaXRpZXMgYW5kIHF1YW50aWxlcy4KYSkgUCAoWCA8IDEyKS4KKGIpIFAgKFggPiA4KS4KKGMpIFAgKDkgPCBYIDwgMTAsIDUpLgooZCkgVGhlIHF1YW50aWxlcyB4IDAuMDI1ICwgeCAwLjUgLCBhbmQgeCAwLjk3NSAuCmBgYHtyfQoKYGBgClQgLWRpc3RyaWJ1dGlvbi4gVmVyaWZ5IHRoZSBmb2xsb3dpbmcgY29tcHV0YXRpb25zIGZvciB0aGUgVCA2IGRpc3RyaWJ1LQp0aW9uLgooYSkgUCAoVCA2IDwgMSkuCihiKSBQIChUIDYgPiAyKS4KKGMpIFAgKOKIkjEgPCBUIDYgPCAxKS4KKGQpIFAgKOKIkjIgPCBUIDYgPCDiiJIyKS4KKGUpIFRoZSBxdWFudGlsZXMgdCAwLjAyNSAsIHQgMC41ICwgYW5kIHQgMC45NzUgLgpgYGB7cn0KCmBgYApGIGRpc3RyaWJ1dGlvbi4gQ29tcHV0ZSB0aGUgZm9sbG93aW5nIHByb2JhYmlsaXRpZXMgYW5kIHF1YW50aWxlcyBmb3IKdGhlIEYgOCw1IGRpc3RyaWJ1dGlvbi4KKGEpIFAgKEYgOCw1IDwgMykuCihiKSBQIChGIDgsNSA+IDQpLgooYykgUCAoMSA8IEYgOCw1IDwgNikuCihkKSBUaGUgcXVhbnRpbGVzIGYgMC4wMjUgLCBmIDAuNSAsIGFuZCBmIDAuOTc1IC4KYGBge3J9CgpgYGAKQ2hpLXNxdWFyZWQgZGlzdHJpYnV0aW9uLiBDb21wdXRlIHRoZSBmb2xsb3dpbmcgZm9yIHRoZSBjaGktc3F1YXJlZApkaXN0cmlidXRpb24gd2l0aCAxMCBkZWdyZWVzIG9mIGZyZWVkb20uCihhKSBQICjPhyAyMTAgPCAzKS4KKGIpIFAgKM+HIDIxMCA+IDQpLgooYykgUCAoMSA8IM+HIDIxMCA8IDYpLgooZCkgVGhlIHF1YW50aWxlcyBnIDAuMDI1ICwgZyAwLjUgLCBhbmQgZyAwLjk3NSAuCmBgYHtyfQoKYGBgCk1pY3JvUk5BLiBTdXBwb3NlIHRoYXQgZm9yIGNlcnRhaW4gbWljcm9STkEgb2Ygc2l6ZSAyMCB0aGUgcHJvYmEtCmJpbGl0eSBvZiBhIHB1cmluZSBpcyBiaW5vbWlhbGx5IGRpc3RyaWJ1dGVkIHdpdGggcHJvYmFiaWxpdHkgMC43LgooYSkgV2hhdCBpcyB0aGUgcHJvYmFiaWxpdHkgb2YgMTQgcHVyaW5lcz8KKGIpIFdoYXQgaXMgdGhlIHByb2JhYmlsaXR5IG9mIGxlc3MgdGhhbiBvciBlcXVhbCB0byAxNCBwdXJpbmVzPwooYykgV2hhdCBpcyB0aGUgcHJvYmFiaWxpdHkgb2Ygc3RyaWN0bHkgbW9yZSB0aGFuIDEwIHB1cmluZXM/CihkKSBCeSB3aGF0IHByb2JhYmlsaXR5IGlzIG9mIHRoZSBudW1iZXIgb2YgcHVyaW5lcyBiZXR3ZWVuIDEwIGFuZAoxNT8KKGUpIEhvdyBtYW55IHB1cmluZXMgZG8geW91IGV4cGVjdD8gSW4gb3RoZXIgd29yZHM6IFdoYXQgaXMgdGhlCm1lYW4gb2YgdGhlIGRpc3RyaWJ1dGlvbj8KKGYpIFdoYXQgaXMgdGhlIHN0YW5kYXJkIGRldmlhdGlvbiBvZiB0aGUgZGlzdHJpYnV0aW9uPwpgYGB7cn0KCmBgYApaeXhpbi4gVGhlIGRpc3RyaWJ1dGlvbiBvZiB0aGUgZXhwcmVzc2lvbiB2YWx1ZXMgb2YgdGhlIEFMTCBwYXRpZW50cwpvbiB0aGUgWnl4aW4gZ2VuZSBhcmUgZGlzdHJpYnV0ZWQgYWNjb3JkaW5nIHRvIE4gKDEuNiwgMC40IDIgKS4KKGEpIENvbXB1dGUgdGhlIHByb2JhYmlsaXR5IHRoYXQgdGhlIGV4cHJlc3Npb24gdmFsdWVzIGFyZSBzbWFsbGVyCnRoYW4gMS4yPwooYikgV2hhdCBpcyB0aGUgcHJvYmFiaWxpdHkgdGhhdCB0aGUgZXhwcmVzc2lvbiB2YWx1ZXMgYXJlIGJldHdlZW4gMS4yCmFuZCAyLjA/CihjKSBXaGF0IGlzIHRoZSBwcm9iYWJpbGl0eSB0aGF0IHRoZSBleHByZXNzaW9uIHZhbHVlcyBhcmUgYmV0d2VlbiAwLjgKYW5kIDIuND8KKGQpIENvbXB1dGUgdGhlIGV4YWN0IHZhbHVlcyBmb3IgdGhlIHF1YW50aWxlcyB4IDAuMDI1IGFuZCB4IDAuOTc1IC4KKGUpIFVzZSBybm9ybSB0byBkcmF3IGEgc2FtcGxlIG9mIHNpemUgMTAwMCBmcm9tIHRoZSBwb3B1bGF0aW9uIGFuZApjb21wYXJlIHRoZSBzYW1wbGUgbWVhbiBhbmQgc3RhbmRhcmQgZGV2aWF0aW9uIHdpdGggdGhhdCBvZiB0aGUKcG9wdWxhdGlvbi4KYGBge3J9CgpgYGAKU29tZSBjb21wdXRhdGlvbnMgb24gR29sdWIgZXQgYWwuICgxOTk5KSBkYXRhLgooYSkgVGFrZSDCtSA9IDAgYW5kIGNvbXB1dGUgdGhlIHQtdmFsdWVzIGZvciB0aGUgQUxMIGdlbmUgZXhwcmVzc2lvbgp2YWx1ZXMuIEZpbmQgdGhlIHRocmVlIGdlbmVzIHdpdGggbGFyZ2VzdCBhYnNvbHV0ZSB0LXZhbHVlcy4KKGIpIENvbXB1dGUgcGVyIGdlbmUgdGhlIHJhdGlvIG9mIHRoZSB2YXJpYW5jZXMgZm9yIHRoZSBBTEwgYW5kIHRoZQpBTUwgcGF0aWVudHMuIEhvdyBtYW55IGFyZSBiZXR3ZWVuIDAuNSBhbmQgMS41PwpgYGB7cn0KCmBgYApFeHRyZW1lIHZhbHVlIGludmVzdGlnYXRpb24uIFRoaXMgKGRpZmZpY3VsdCEpIHF1ZXN0aW9uIGFpbXMgdG8gdGVhY2gKdGhlIGVzc2VuY2Ugb2YgYW4gZXh0cmVtZSB2YWx1ZSBkaXN0cmlidXRpb24hIEFuIGludGVyZXN0aW5nIGV4dHJlbWUKdmFsdWUgZGlzdHJpYnV0aW9uIGlzIGdpdmVuIGJ5IFBldnNuZXIgKDIwMDMsIHAuMTAzKS4gVGFrZSB0aGUgbWF4aW11bQpvZiBhIHNhbXBsZSAod2l0aCBzaXplIDEwMDApIGZyb20gdGhlIHN0YW5kYXJkIG5vcm1hbCBkaXN0cmlidXRpb24gYW5kCnJlcGVhdCB0aGlzIDEwMDAgdGltZXMuIFNvIHRoYXQgeW91IHNhbXBsZWQgMTAwMCBtYXhpbWEuIE5leHQsCnN1YnRyYWN0IGZyb20gdGhlc2UgbWF4aW1hIGFuIGFuZCBkaXZpZGUgYnkgYm4sIHdoZXJlCmBgYHtyfQphbiA8LSBzcXJ0KDIqbG9nKG4pKSAtIDAuNSoobG9nKGxvZyhuKSkrbG9nKDQqcGkpKSooMipsb2cobikpXigtMS8yKQpibiA8LSAoMipsb2cobikpXigtMS8yKQoKCmBgYApOb3cgcGxvdCB0aGUgZGVuc2l0eSBmcm9tIHRoZSBub3JtYWxpemVkIG1heGltYSBhbmQgYWRkIHRoZSBleHRyZW1lCnZhbHVlIGZ1bmN0aW9uIGYgKHgpIGZyb20gUGV2c25lciBoaXMgYm9vaywgYW5kIGFkZCB0aGUgZGVuc2l0eSAoZG5vcm0pCmZyb20gdGhlIG5vcm1hbCBkaXN0cmlidXRpb24uIFdoYXQgZG8geW91IG9ic2VydmU/CmBgYHtyfQoKYGBgCg==</div>
 
 
 

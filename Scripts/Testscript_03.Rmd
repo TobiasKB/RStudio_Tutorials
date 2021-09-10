@@ -22,9 +22,6 @@ for (k in 0:3) print(dbinom(k,3,0.25))
 
 pbinom(2,3,0.25)
 
-#plotting the binomial distribution and the cumulative properties (density)====
-x<-0:22
-plot(x, dbinom(x, size=22,prob=.7),type="h")
 
 ```
 Example 3. RNA consists of a sequence of nucleotides A, G, U, and C,
@@ -35,3 +32,61 @@ and pyrimidines is binomially distributed. The event that our microRNA
 contains 14 purines can be represented by X = 14. The probability of this
 event can be computed by Paper Site 32
 
+By the first line the sequence of integers {1, 2, · · · , 22} is constructed and by
+the second the density function is plotted, where the argument h specifies
+pins. From Figure 3.1 it can be observed that the largest probabilities oc-
+cur near the expectation 15.4. The graph in Figure 3.2 illustrates that the
+distribution is an increasing step function, with x on the horizontal axis and
+P (X ≤ x) on the vertical.
+A random sample of size 1000 from the binomial distribution with n = 22
+and p = 0.7 can be drawn by the command rbinom(1000,22,0.7). This
+simulates the number of purines in 1000 microRNA’s each with purine prob-
+ability equal to 0.7 and length 22.
+```{r}
+#plotting the binomial distribution and the cumulative properties (density)====
+x<-0:22
+plot(x, dbinom(x, size=22,prob=.7),type="h")
+
+```
+
+```{r}
+library(TeachingDemos)
+vis.normal()
+vis.t()
+pchisq(8,5)
+
+qchisq(0.025, 5, lower.tail=TRUE)
+```
+
+
+```{r}
+library(multtest); data(golub)
+gol.fac <- factor(golub.cl,levels=0:1, labels= c("ALL","AML"))
+x <- golub[1042,gol.fac=="ALL"]
+z <- (x-1.90)/0.50
+sum(z^2)
+#Chi-Square Distribution ====
+pchisq(sum(z^2),27, lower.tail=FALSE)
+#t-Distribution====
+n <- 11
+x <- golub[2058, gol.fac=="AML"]
+t.value <- sqrt(n)*(mean(x)-0)/sd(x)
+t.value
+qt(0.025,n-1)
+
+#FDistribution====
+var(golub[1042,gol.fac=="ALL"])/var(golub[1042,gol.fac=="AML"])
+qf(.025,26,10)
+
+#Plotting density function ====
+f<-function(x){dnorm(x,1.9,0.5)}
+plot(f,0,4,xlab="x-axis",ylab="density f(x)")
+
+plot(f,0,4,xlab="x-axis",ylab="density f(x)")
+x<-seq(0,1.4,0.01)
+polygon(c(0,x,1.4), c(0,f(x),0), col="lightblue")
+
+```
+For practical computations R has built-in-functions for the binomial, normal,
+t, F, χ 2 -distributions, where d stands for density, p for (cumulative) prob-
+ability distribution, q for quantiles, and r for drawing random samples.

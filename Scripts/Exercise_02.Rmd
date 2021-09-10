@@ -265,6 +265,17 @@ symmetric distribution of data
 
 (b) Compute the SD, IQR, and MAD for gene expression values of
 the ALL patients, report their range and comment on it.
+
+low standard deviation implicates values tend to be close to mean, high that values are very further spread
+Here the sd varies alot between datasets
+
+IQR The interquartile Range shows the "mid fifty" from end of quartile 1 to start of quartile 4 (IQR = Q3-Q1). The quartiles seperate the data into bulks
+such that 1/4 of the values is in Quartile 1,2,3 and 4 respectively. Q1 is the median of lower half, Q3 is median of upper half
+This indicates that 25% are below low limit, 50% in between and 25% above limit
+
+
+MAD 
+
 ```{r Task 8}
 library(dplyr)
 #a)====
@@ -289,11 +300,11 @@ hist(all_median)
 #b)====
 
 all_sd<-apply(golub[,gol.fac=="ALL"],1, sd) 
-range(all_sd)
+sprintf("standard deviation min: %s standard deviation max: %s" , range(all_sd)[1], range(all_sd)[2])
+
 all_iqr<-apply(golub[,gol.fac=="ALL"],1, IQR)
 range(all_iqr)
 all_mad<-apply(golub[,gol.fac=="ALL"],1, mad)
 range(all_mad)
 
-hist()
 ```
