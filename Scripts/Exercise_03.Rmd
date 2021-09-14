@@ -1,6 +1,8 @@
 ---
 title: "R Notebook"
 output: html_notebook
+editor_options: 
+  chunk_output_type: inline
 ---
 1. Binomial Let X be binomially distributed with n = 60 and p = 0.4.
 Compute the following.
@@ -12,8 +14,34 @@ Compute the following.
 
 ```{r}
 
+probability <- rep(0.4, 60) 
+plot(probability,
+     xlab = "outcomes",
+     main = "Probability Distribution") 
+#a)====
+dbinom(24,60,0.4)
+pbinom(24,60,0.4)
+1-pbinom(29,60,0.4)
+sum(dbinom(30:60,60,0.4))
 
+#b)====
+sum(dbinom(20:30,60,0.4))
+1-pbinom(19,60,0.4)
+#P(X>=20)+P(X>=40)
+sum(dbinom(20:60,60,0.4))+sum(dbinom(40:60,60,0.4))
+#c)====
+#P(X>=20) AND P(X>=10)
+sum(dbinom(20:60,60,0.4))
+sum(dbinom(10:60,60,0.4))
+#Da 20:60 bereits in 10:60 enthalten ist, gilt nur 10:60
+#d)====
+#Erwartungswert ist SUM(Xxf(x))
+#every value has the same probability
+sum(probability)
+sqrt(60*0.4*0.6)
 
+#c)====
+qbinom(c(0.025,0.5,0.975),60,0.4)
 ```
 
 2. Standard Normal. Compute the following probabilities and quantiles.
@@ -24,7 +52,30 @@ Compute the following.
 (e) P (−1.96 < Z < 1.96).
 (f) The quantiles z 0.025 , z 0.05 , z 0.5 , z 0.95 , and z 0.975 .
 ```{r}
+#Normal
+#µ, σ
+#dnorm(x, µ, σ) pnorm(x, µ, σ) qnorm (α, µ, σ) rnorm(10, µ, σ)
+#a)====
+#P (X < 1.4) = pnorm(1.4, 1.9, 0.5) = 0.1586.
+#P(X<2.3)-P(X=1.6)
+pnorm(2.3,0,1)-pnorm(1.6,0,1)
 
+#b====
+
+pnorm(1.64,0,1)
+
+#c====
+pnorm (-1.02,0,1)-pnorm(-1.64,0,1)
+
+#d====
+
+pnorm(1.96,0,1)-0.5
+
+#e====
+pnorm(1.96,0,1)-pnorm(-1.96,0,1)
+
+#f====
+qnorm(c(0.025, 0.05,0.5,0.95,0.975))
 ```
 Normal. Compute for X distributed as N (10, 2) the following proba-
 bilities and quantiles.
@@ -33,6 +84,17 @@ a) P (X < 12).
 (c) P (9 < X < 10, 5).
 (d) The quantiles x 0.025 , x 0.5 , and x 0.975 .
 ```{r}
+#a====
+#calculate mean first and sd first
+
+pnorm(12,10,2)
+
+#b====
+1-pnorm(8,10,2)
+#c====
+pnorm(10.5, 10, 2)- pnorm(9,10,2)
+#d====
+qnorm(c(0.025, 0.05,0.5,0.95,0.975),mean =10, sd=2 )
 
 ```
 T -distribution. Verify the following computations for the T 6 distribu-
@@ -43,6 +105,17 @@ tion.
 (d) P (−2 < T 6 < −2).
 (e) The quantiles t 0.025 , t 0.5 , and t 0.975 .
 ```{r}
+#T #m=6 #dt(x, m) #pt(x, m) #qt(α, m) #rt(10, m)
+#a====
+pt(1,6)
+#b====
+1-pt(2,6)
+#c====
+pt(1,6)-pt(-1,6)
+#d==== Rechtschreibfehler?
+pt(2,6)-pt(-2,6)
+#e====
+qt(c(0.025, 0.05,0.5,0.95,0.975),6 )
 
 ```
 F distribution. Compute the following probabilities and quantiles for
@@ -52,6 +125,8 @@ the F 8,5 distribution.
 (c) P (1 < F 8,5 < 6).
 (d) The quantiles f 0.025 , f 0.5 , and f 0.975 .
 ```{r}
+
+
 
 ```
 Chi-squared distribution. Compute the following for the chi-squared
