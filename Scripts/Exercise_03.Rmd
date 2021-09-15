@@ -119,23 +119,42 @@ qt(c(0.025, 0.05,0.5,0.95,0.975),6 )
 
 ```
 F distribution. Compute the following probabilities and quantiles for
-the F 8,5 distribution.
+the F (8,5) distribution.
 (a) P (F 8,5 < 3).
 (b) P (F 8,5 > 4).
 (c) P (1 < F 8,5 < 6).
 (d) The quantiles f 0.025 , f 0.5 , and f 0.975 .
 ```{r}
+#m,n df(x, m, n) pf(x, m, n) qf(α, m, n) rf(10, m, n)
+#a)====
+pf(3, 8,5)
+#b)====
+1-pf(4,8,5)
+#c)====
+pf(6,8,5)-pf(1,8,5)
 
+#d)====
+qf(c(0.025, 0.05,0.5,0.95,0.975),8,5 )
 
 
 ```
 Chi-squared distribution. Compute the following for the chi-squared
 distribution with 10 degrees of freedom.
-(a) P (χ 210 < 3).
-(b) P (χ 210 > 4).
-(c) P (1 < χ 210 < 6).
+(a) P (χ^2^10 < 3).
+(b) P (χ^2^10 > 4).
+(c) P (1 < χ^2^10 < 6).
 (d) The quantiles g 0.025 , g 0.5 , and g 0.975 .
 ```{r}
+#Chi-squared m dchisq(x, m) pchisq(x, m) qchisq(α, m) rchisq(10, m)
+#a)====
+
+pchisq(3,10)
+#b)====
+1-pchisq(4,10)
+#c)====
+pchisq(6,10)-pchisq(1,10)
+#d)====
+qchisq(c(0.025, 0.05,0.5,0.95,0.975),10)
 
 ```
 MicroRNA. Suppose that for certain microRNA of size 20 the proba-
@@ -149,10 +168,33 @@ bility of a purine is binomially distributed with probability 0.7.
 mean of the distribution?
 (f) What is the standard deviation of the distribution?
 ```{r}
+#a)====
+#Use binomial Distribution: pbinom(x,n,p)
+#P(X=14)
+dbinom(14,20, 0.7)
+#b)====
+#P(X<= 14)
+pbinom(14,20,0.7)
+
+#c)====
+#P(X>10)
+1-pbinom(10,20,0.7)
+
+#d)====
+#P(10<X<15)
+pbinom(15,20,0.7)-pbinom(10,20,0.7)
+
+#e)====
+#m=N*p
+20*0.7
+
+#f)====
+#square root of variance S^2: S^2=Np(1-p)
+sqrt(20*0.7*(1-0.7))
 
 ```
 Zyxin. The distribution of the expression values of the ALL patients
-on the Zyxin gene are distributed according to N (1.6, 0.4 2 ).
+on the Zyxin gene are distributed according to N (1.6, 0.4^2 ).
 (a) Compute the probability that the expression values are smaller
 than 1.2?
 (b) What is the probability that the expression values are between 1.2
@@ -164,6 +206,10 @@ and 2.4?
 compare the sample mean and standard deviation with that of the
 population.
 ```{r}
+#Use normal distribution
+#a)====
+#P(X<1.2)
+pnorm(1.2,1.6,0.4)
 
 ```
 Some computations on Golub et al. (1999) data.
