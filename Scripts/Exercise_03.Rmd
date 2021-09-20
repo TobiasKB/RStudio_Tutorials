@@ -268,9 +268,39 @@ of a sample (with size 1000) from the standard normal distribution and
 repeat this 1000 times. So that you sampled 1000 maxima. Next,
 subtract from these maxima an and divide by bn, where
 ```{r}
+
+e <- double(); n <- 10000 # Serfling p.90
 an <- sqrt(2*log(n)) - 0.5*(log(log(n))+log(4*pi))*(2*log(n))^(-1/2)
 bn <- (2*log(n))^(-1/2)
+for (i in 1:1000) e[i] <- (max(rnorm(n))-an)/bn
+plot(density(e),ylim=c(0,0.5))
+f<-function(x){exp(-x)*exp(-exp(-x))}
+curve(f,range(density(e)$x),add=TRUE,col = "blue")
+curve(dnorm,add=TRUE,col = "red")
 
+#Example for RFunction for extreme value distributions ====
+library(extRemes)
+
+# Generate Gumbel Random numbers
+x = revd(10000,loc=0,scale=1,shape=0)
+hist(x,prob=T,xlab="Random Variables from Gumbel (location = 0,scale = 1, shape =0)",main="Gumbel Distribution",ylab="f(x)",font=2,family="serif",font.lab=2,cex.lab=1.5)
+plot(logspline(x),add=T)
+
+# Frechet distribution plot
+y = revd(10000,loc=0,scale=1,shape=0.2)
+hist(y,prob=T,ylim=c(0,0.4),xlab="Random Variables from Frechet (location = 0, scale = 1, shape = 0.2)",main="Frechet Distribution",ylab="f(x)",font=2,family="serif",font.lab=2,cex.lab=1.5)
+plot(logspline(y),add=T,col="red")
+plot(logspline(x),add=T)
+
+## Weibull Distribution Plot 
+z = revd(10000,loc=0,scale=1,shape=-0.6)
+hist(z,prob=T,ylim=c(0,0.5),xlab="Random Variables from Weibull (location = 0, scale = 1, shape = -0.6)",main="Weibull Distribution",ylab="f(x)",font=2,family="serif",font.lab=2,cex.lab=1.5)
+plot(logspline(z),add=T,col="red")
+
+
+#fevd Command to estimate parameters
+#fit = fevd(fatigue_cycles,type="GEV")
+#summary(fit)
 
 ```
 Now plot the density from the normalized maxima and add the extreme
