@@ -1,0 +1,89 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+Z-Test
+Example 1. To illustrate the Z-test we shall concentrate on the Gdf5
+gene from the Golub et al. (1999) data 2 . The corresponding expression
+values are contained in row 2058. A quick search through the NCBI site
+makes it likely that this gene is not directly related to leukemia. Hence,
+we may hypothesize that the population mean of the ALL expression values
+equals zero. Accordingly, we test H 0 : µ = 0 against H 1 : µ 6 = 0. For the sake
+of illustration we shall pretend that the standard deviation σ is known to be
+equal to 0.25. The z-value (=0.001116211) can be computed as follows.
+```{r}
+data(golub, package = "multtest")
+gol.fac <- factor(golub.cl,levels=0:1, labels= c("ALL","AML"))
+sigma <- 0.25; n <- 27; mu0 <- 0
+x <- golub[2058,gol.fac=="ALL"]
+z.value <- sqrt(n)*(mean(x) - mu0)/sigma
+
+```
+The p-value can now be computed as follows. Since it is clearly larger than 0.05, we conclude that the null hypothesis of
+mean equal to zero is not rejected (accepted).
+```{r}
+2*pnorm(-abs(z.value),0,1)
+```
+Example 2. Using the data from Example 1, the 95% confidence interval
+given by Equation 4.1 can be computed as follows. 4
+```{r}
+mean(x)+qnorm(c(0.025),0,1)*sigma/sqrt(n)
+mean(x)+qnorm(c(0.975),0,1)*sigma/sqrt(n)
+```
+```{r}
+library(TeachingDemos)
+z.test(x,mu=0,sd=0.25)
+```
+
+```{r}
+ci.examp(mean.sim =0, sd = 1, n = 25, reps = 100,method = "z", lower.conf=0.025, upper.conf=0.975)
+```
+ T-Value Test: 
+```{r}
+x <- golub[2058,gol.fac=="ALL"]; mu0 <- 0; n <- 27
+t.value<-sqrt(n)*(mean(x) - mu0)/sd(x)
+t.value
+
+#2 · P (T26 ≤ −0.0010) = 2 ∗ pt(−0.0010, 26) = 0.9991 > α,
+#To see whether the observed t-value belongs to the 95% confidence inter-
+#val, we compute
+#(t 0.025,26 , t 0.975,26 ) = (qt(0.025, n − 1), qt(0.975, n − 1)) = (−2.055, 2.055).
+```
+Since this interval does contain the t-value, we do not reject the hypothesis
+that µ equals zero. The left boundary of the 95% confidence interval for the
+population mean can be computed, as follows.
+```{r}
+mean(x)+qt(0.025,26)*sd(x)/sqrt(n)
+```
+The 95% confidence interval equals (−0.1025, 0.1025). Since it contains zero,
+we do not reject the null-hypothesis.
+In daily practice it is much more convenient to use the built-in-function
+t.test. We illustrate it with the current testing problem.
+```{r}
+t.test(x,mu=0)
+
+t.test(golub[1042,gol.fac=="ALL"],mu=0, alternative = c("greater"))
+```
+The large t-value indicates that, relative to its standard error, the mean dif-
+fers largely from zero. Accordingly, the p-value is very close to zero, so that
+the conclusion is to reject H 0
+```{r Two-sample t-test with unequal variances}
+#Welch Two-Sample Test
+t.test(golub[1042,] ~gol.fac, var.equal=FALSE)
+```
+The t-value is quite large, indicating that the two means x and y differ largely
+from zero relative to the corresponding standard error (denominator in Equa-
+tion 4.2). Since the p-value is extremely small, the conclusion is to reject the
+null-hypothesis of equal means.
+```{r Two sample t-test with equal variances}
+t.test(golub[1042,] ~gol.fac, var.equal = TRUE)
+```
+-> Conclusion is to reject the null Hypothesis of equal population means. P-value is slightly smaller than that of the previous test. 
+```{r F-test on equal variances}
+var.test(golub[1042,] ~gol.fac)
+```
+From the p-value 0.4652, the null-hypothesis of equal variances is not re-
+jected.
+```{r Binomial Test}
+binom.test(18, 22, p = 0.7, alternative = c("greater"), conf.level = 0.95)
+```
