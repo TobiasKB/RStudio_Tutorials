@@ -218,6 +218,14 @@ pre code {
 <p>Z-Test Example 1. To illustrate the Z-test we shall concentrate on the Gdf5 gene from the Golub et al. (1999) data 2 . The corresponding expression values are contained in row 2058. A quick search through the NCBI site makes it likely that this gene is not directly related to leukemia. Hence, we may hypothesize that the population mean of the ALL expression values equals zero. Accordingly, we test H 0 : µ = 0 against H 1 : µ 6 = 0. For the sake of illustration we shall pretend that the standard deviation σ is known to be equal to 0.25. The z-value (=0.001116211) can be computed as follows.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YShnb2x1YiwgcGFja2FnZSA9IFwibXVsdHRlc3RcIilcbmdvbC5mYWMgPC0gZmFjdG9yKGdvbHViLmNsLGxldmVscz0wOjEsIGxhYmVscz0gYyhcIkFMTFwiLFwiQU1MXCIpKVxuc2lnbWEgPC0gMC4yNTsgbiA8LSAyNzsgbXUwIDwtIDBcbnggPC0gZ29sdWJbMjA1OCxnb2wuZmFjPT1cIkFMTFwiXVxuei52YWx1ZSA8LSBzcXJ0KG4pKihtZWFuKHgpIC0gbXUwKS9zaWdtYVxuXG5gYGAifQ== -->
+<pre class="r"><code>data(golub, package = &quot;multtest&quot;)
+gol.fac &lt;- factor(golub.cl,levels=0:1, labels= c(&quot;ALL&quot;,&quot;AML&quot;))
+sigma &lt;- 0.25; n &lt;- 27; mu0 &lt;- 0
+x &lt;- golub[2058,gol.fac==&quot;ALL&quot;]
+z.value &lt;- sqrt(n)*(mean(x) - mu0)/sigma
+</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>The p-value can now be computed as follows. Since it is clearly larger than 0.05, we conclude that the null hypothesis of mean equal to zero is not rejected (accepted).</p>
@@ -383,8 +391,131 @@ probability of success
              0.8181818 </code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShhcGUpXG56eXhpbmZyZXEgPC0gdGFibGUocmVhZC5HZW5CYW5rKGMoXCJYOTQ5OTEuMVwiKSxhcy5jaGFyYWN0ZXI9VFJVRSkpXG5jaGlzcS50ZXN0KHp5eGluZnJlcSlcbmBgYCJ9 -->
+<pre class="r"><code>library(ape)
+zyxinfreq &lt;- table(read.GenBank(c(&quot;X94991.1&quot;),as.character=TRUE))
+chisq.test(zyxinfreq)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5cdENoaS1zcXVhcmVkIHRlc3QgZm9yIGdpdmVuIHByb2JhYmlsaXRpZXNcblxuZGF0YTogIHp5eGluZnJlcVxuWC1zcXVhcmVkID0gMTg3LjA3LCBkZiA9IDMsIHAtdmFsdWUgPCAyLjJlLTE2XG4ifQ== -->
+<pre><code>
+    Chi-squared test for given probabilities
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQpaLVRlc3QKRXhhbXBsZSAxLiBUbyBpbGx1c3RyYXRlIHRoZSBaLXRlc3Qgd2Ugc2hhbGwgY29uY2VudHJhdGUgb24gdGhlIEdkZjUKZ2VuZSBmcm9tIHRoZSBHb2x1YiBldCBhbC4gKDE5OTkpIGRhdGEgMiAuIFRoZSBjb3JyZXNwb25kaW5nIGV4cHJlc3Npb24KdmFsdWVzIGFyZSBjb250YWluZWQgaW4gcm93IDIwNTguIEEgcXVpY2sgc2VhcmNoIHRocm91Z2ggdGhlIE5DQkkgc2l0ZQptYWtlcyBpdCBsaWtlbHkgdGhhdCB0aGlzIGdlbmUgaXMgbm90IGRpcmVjdGx5IHJlbGF0ZWQgdG8gbGV1a2VtaWEuIEhlbmNlLAp3ZSBtYXkgaHlwb3RoZXNpemUgdGhhdCB0aGUgcG9wdWxhdGlvbiBtZWFuIG9mIHRoZSBBTEwgZXhwcmVzc2lvbiB2YWx1ZXMKZXF1YWxzIHplcm8uIEFjY29yZGluZ2x5LCB3ZSB0ZXN0IEggMCA6IMK1ID0gMCBhZ2FpbnN0IEggMSA6IMK1IDYgPSAwLiBGb3IgdGhlIHNha2UKb2YgaWxsdXN0cmF0aW9uIHdlIHNoYWxsIHByZXRlbmQgdGhhdCB0aGUgc3RhbmRhcmQgZGV2aWF0aW9uIM+DIGlzIGtub3duIHRvIGJlCmVxdWFsIHRvIDAuMjUuIFRoZSB6LXZhbHVlICg9MC4wMDExMTYyMTEpIGNhbiBiZSBjb21wdXRlZCBhcyBmb2xsb3dzLgpgYGB7cn0KZGF0YShnb2x1YiwgcGFja2FnZSA9ICJtdWx0dGVzdCIpCmdvbC5mYWMgPC0gZmFjdG9yKGdvbHViLmNsLGxldmVscz0wOjEsIGxhYmVscz0gYygiQUxMIiwiQU1MIikpCnNpZ21hIDwtIDAuMjU7IG4gPC0gMjc7IG11MCA8LSAwCnggPC0gZ29sdWJbMjA1OCxnb2wuZmFjPT0iQUxMIl0Kei52YWx1ZSA8LSBzcXJ0KG4pKihtZWFuKHgpIC0gbXUwKS9zaWdtYQoKYGBgClRoZSBwLXZhbHVlIGNhbiBub3cgYmUgY29tcHV0ZWQgYXMgZm9sbG93cy4gU2luY2UgaXQgaXMgY2xlYXJseSBsYXJnZXIgdGhhbiAwLjA1LCB3ZSBjb25jbHVkZSB0aGF0IHRoZSBudWxsIGh5cG90aGVzaXMgb2YKbWVhbiBlcXVhbCB0byB6ZXJvIGlzIG5vdCByZWplY3RlZCAoYWNjZXB0ZWQpLgpgYGB7cn0KMipwbm9ybSgtYWJzKHoudmFsdWUpLDAsMSkKYGBgCkV4YW1wbGUgMi4gVXNpbmcgdGhlIGRhdGEgZnJvbSBFeGFtcGxlIDEsIHRoZSA5NSUgY29uZmlkZW5jZSBpbnRlcnZhbApnaXZlbiBieSBFcXVhdGlvbiA0LjEgY2FuIGJlIGNvbXB1dGVkIGFzIGZvbGxvd3MuIDQKYGBge3J9Cm1lYW4oeCkrcW5vcm0oYygwLjAyNSksMCwxKSpzaWdtYS9zcXJ0KG4pCm1lYW4oeCkrcW5vcm0oYygwLjk3NSksMCwxKSpzaWdtYS9zcXJ0KG4pCmBgYApgYGB7cn0KbGlicmFyeShUZWFjaGluZ0RlbW9zKQp6LnRlc3QoeCxtdT0wLHNkPTAuMjUpCmBgYAoKYGBge3J9CmNpLmV4YW1wKG1lYW4uc2ltID0wLCBzZCA9IDEsIG4gPSAyNSwgcmVwcyA9IDEwMCxtZXRob2QgPSAieiIsIGxvd2VyLmNvbmY9MC4wMjUsIHVwcGVyLmNvbmY9MC45NzUpCmBgYAogVC1WYWx1ZSBUZXN0OiAKYGBge3J9CnggPC0gZ29sdWJbMjA1OCxnb2wuZmFjPT0iQUxMIl07IG11MCA8LSAwOyBuIDwtIDI3CnQudmFsdWU8LXNxcnQobikqKG1lYW4oeCkgLSBtdTApL3NkKHgpCnQudmFsdWUKCiMyIMK3IFAgKFQyNiDiiaQg4oiSMC4wMDEwKSA9IDIg4oiXIHB0KOKIkjAuMDAxMCwgMjYpID0gMC45OTkxID4gzrEsCiNUbyBzZWUgd2hldGhlciB0aGUgb2JzZXJ2ZWQgdC12YWx1ZSBiZWxvbmdzIHRvIHRoZSA5NSUgY29uZmlkZW5jZSBpbnRlci0KI3ZhbCwgd2UgY29tcHV0ZQojKHQgMC4wMjUsMjYgLCB0IDAuOTc1LDI2ICkgPSAocXQoMC4wMjUsIG4g4oiSIDEpLCBxdCgwLjk3NSwgbiDiiJIgMSkpID0gKOKIkjIuMDU1LCAyLjA1NSkuCmBgYApTaW5jZSB0aGlzIGludGVydmFsIGRvZXMgY29udGFpbiB0aGUgdC12YWx1ZSwgd2UgZG8gbm90IHJlamVjdCB0aGUgaHlwb3RoZXNpcwp0aGF0IMK1IGVxdWFscyB6ZXJvLiBUaGUgbGVmdCBib3VuZGFyeSBvZiB0aGUgOTUlIGNvbmZpZGVuY2UgaW50ZXJ2YWwgZm9yIHRoZQpwb3B1bGF0aW9uIG1lYW4gY2FuIGJlIGNvbXB1dGVkLCBhcyBmb2xsb3dzLgpgYGB7cn0KbWVhbih4KStxdCgwLjAyNSwyNikqc2QoeCkvc3FydChuKQpgYGAKVGhlIDk1JSBjb25maWRlbmNlIGludGVydmFsIGVxdWFscyAo4oiSMC4xMDI1LCAwLjEwMjUpLiBTaW5jZSBpdCBjb250YWlucyB6ZXJvLAp3ZSBkbyBub3QgcmVqZWN0IHRoZSBudWxsLWh5cG90aGVzaXMuCkluIGRhaWx5IHByYWN0aWNlIGl0IGlzIG11Y2ggbW9yZSBjb252ZW5pZW50IHRvIHVzZSB0aGUgYnVpbHQtaW4tZnVuY3Rpb24KdC50ZXN0LiBXZSBpbGx1c3RyYXRlIGl0IHdpdGggdGhlIGN1cnJlbnQgdGVzdGluZyBwcm9ibGVtLgpgYGB7cn0KdC50ZXN0KHgsbXU9MCkKCnQudGVzdChnb2x1YlsxMDQyLGdvbC5mYWM9PSJBTEwiXSxtdT0wLCBhbHRlcm5hdGl2ZSA9IGMoImdyZWF0ZXIiKSkKYGBgClRoZSBsYXJnZSB0LXZhbHVlIGluZGljYXRlcyB0aGF0LCByZWxhdGl2ZSB0byBpdHMgc3RhbmRhcmQgZXJyb3IsIHRoZSBtZWFuIGRpZi0KZmVycyBsYXJnZWx5IGZyb20gemVyby4gQWNjb3JkaW5nbHksIHRoZSBwLXZhbHVlIGlzIHZlcnkgY2xvc2UgdG8gemVybywgc28gdGhhdAp0aGUgY29uY2x1c2lvbiBpcyB0byByZWplY3QgSCAwCmBgYHtyIFR3by1zYW1wbGUgdC10ZXN0IHdpdGggdW5lcXVhbCB2YXJpYW5jZXN9CiNXZWxjaCBUd28tU2FtcGxlIFRlc3QKdC50ZXN0KGdvbHViWzEwNDIsXSB+Z29sLmZhYywgdmFyLmVxdWFsPUZBTFNFKQpgYGAKVGhlIHQtdmFsdWUgaXMgcXVpdGUgbGFyZ2UsIGluZGljYXRpbmcgdGhhdCB0aGUgdHdvIG1lYW5zIHggYW5kIHkgZGlmZmVyIGxhcmdlbHkKZnJvbSB6ZXJvIHJlbGF0aXZlIHRvIHRoZSBjb3JyZXNwb25kaW5nIHN0YW5kYXJkIGVycm9yIChkZW5vbWluYXRvciBpbiBFcXVhLQp0aW9uIDQuMikuIFNpbmNlIHRoZSBwLXZhbHVlIGlzIGV4dHJlbWVseSBzbWFsbCwgdGhlIGNvbmNsdXNpb24gaXMgdG8gcmVqZWN0IHRoZQpudWxsLWh5cG90aGVzaXMgb2YgZXF1YWwgbWVhbnMuCmBgYHtyIFR3byBzYW1wbGUgdC10ZXN0IHdpdGggZXF1YWwgdmFyaWFuY2VzfQp0LnRlc3QoZ29sdWJbMTA0MixdIH5nb2wuZmFjLCB2YXIuZXF1YWwgPSBUUlVFKQpgYGAKLT4gQ29uY2x1c2lvbiBpcyB0byByZWplY3QgdGhlIG51bGwgSHlwb3RoZXNpcyBvZiBlcXVhbCBwb3B1bGF0aW9uIG1lYW5zLiBQLXZhbHVlIGlzIHNsaWdodGx5IHNtYWxsZXIgdGhhbiB0aGF0IG9mIHRoZSBwcmV2aW91cyB0ZXN0LiAKYGBge3IgRi10ZXN0IG9uIGVxdWFsIHZhcmlhbmNlc30KdmFyLnRlc3QoZ29sdWJbMTA0MixdIH5nb2wuZmFjKQpgYGAKRnJvbSB0aGUgcC12YWx1ZSAwLjQ2NTIsIHRoZSBudWxsLWh5cG90aGVzaXMgb2YgZXF1YWwgdmFyaWFuY2VzIGlzIG5vdCByZS0KamVjdGVkLgpgYGB7ciBCaW5vbWlhbCBUZXN0fQpiaW5vbS50ZXN0KDE4LCAyMiwgcCA9IDAuNywgYWx0ZXJuYXRpdmUgPSBjKCJncmVhdGVyIiksIGNvbmYubGV2ZWwgPSAwLjk1KQpgYGAK</div>
+data:  zyxinfreq
+X-squared = 187.07, df = 3, p-value &lt; 2.2e-16</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZmlzaGVyLnRlc3QoZGF0KVxuXG5gYGAifQ== -->
+<pre class="r"><code>fisher.test(dat)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5cdEZpc2hlcidzIEV4YWN0IFRlc3QgZm9yIENvdW50IERhdGFcblxuZGF0YTogIGRhdFxucC12YWx1ZSA9IDAuMDE5MTJcbmFsdGVybmF0aXZlIGh5cG90aGVzaXM6IHRydWUgb2RkcyByYXRpbyBpcyBub3QgZXF1YWwgdG8gMVxuOTUgcGVyY2VudCBjb25maWRlbmNlIGludGVydmFsOlxuIDEuMDI5NTE5IDEuMzk2OTIyXG5zYW1wbGUgZXN0aW1hdGVzOlxub2RkcyByYXRpbyBcbiAgIDEuMTk5OTYgXG4ifQ== -->
+<pre><code>
+    Fisher&#39;s Exact Test for Count Data
+
+data:  dat
+p-value = 0.01912
+alternative hypothesis: true odds ratio is not equal to 1
+95 percent confidence interval:
+ 1.029519 1.396922
+sample estimates:
+odds ratio 
+   1.19996 </code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>To test the hypothesis that the ALL gene expression values of CCND3 Cyclin D3 from Golub et al. (1999) are normally distributed, the Shapiro-Wilk test can be used as follows.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2hhcGlyby50ZXN0KGdvbHViWzEwNDIsIGdvbC5mYWM9PVwiQUxMXCJdKVxuYGBgIn0= -->
+<pre class="r"><code>shapiro.test(golub[1042, gol.fac==&quot;ALL&quot;])</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5cdFNoYXBpcm8tV2lsayBub3JtYWxpdHkgdGVzdFxuXG5kYXRhOiAgZ29sdWJbMTA0MiwgZ29sLmZhYyA9PSBcIkFMTFwiXVxuVyA9IDAuOTQ2NjMsIHAtdmFsdWUgPSAwLjE3NzRcbiJ9 -->
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  golub[1042, gol.fac == &quot;ALL&quot;]
+W = 0.94663, p-value = 0.1774</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShub3J0ZXN0KVxuYWQudGVzdChnb2x1YlsxMDQyLGdvbC5mYWM9PVwiQUxMXCJdKVxuYGBgIn0= -->
+<pre class="r"><code>library(nortest)
+ad.test(golub[1042,gol.fac==&quot;ALL&quot;])</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG5cdEFuZGVyc29uLURhcmxpbmcgbm9ybWFsaXR5IHRlc3RcblxuZGF0YTogIGdvbHViWzEwNDIsIGdvbC5mYWMgPT0gXCJBTExcIl1cbkEgPSAwLjUyMTU0LCBwLXZhbHVlID0gMC4xNjgzXG4ifQ== -->
+<pre><code>
+    Anderson-Darling normality test
+
+data:  golub[1042, gol.fac == &quot;ALL&quot;]
+A = 0.52154, p-value = 0.1683</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShub3J0ZXN0KVxuXG5gYGAifQ== -->
+<pre class="r"><code>library(nortest)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gbGlicmFyeShub3J0ZXN0KSA6IHRoZXJlIGlzIG5vIHBhY2thZ2UgY2FsbGVkIOKAmG5vcnRlc3TigJlcbiJ9 -->
+<pre><code>Error in library(nortest) : there is no package called ‘nortest’</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxud2lsY294LnRlc3QoZ29sdWJbMTA0MixdIH5cbmdvbC5mYWMpXG5gYGAifQ== -->
+<pre class="r"><code>wilcox.test(golub[1042,] ~
+gol.fac)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Application on Datasets</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIGRhdGEoZ29sdWIscGFja2FnZT1cIm11bHR0ZXN0XCIpXG4gZ29sLmZhYyA8LSBmYWN0b3IoZ29sdWIuY2wsbGV2ZWxzPTA6MSwgbGFiZWxzPSBjKFwiQUxMXCIsXCJBTUxcIikpXG4gc2ggPC0gYXBwbHkoZ29sdWJbLGdvbC5mYWM9PVwiQUxMXCJdLCAxLCBmdW5jdGlvbih4KSBzaGFwaXJvLnRlc3QoeCkkcC52YWx1ZSlcbiBzdW0oc2ggPiAwLjA1KS9ucm93KGdvbHViKSAqIDEwMFxuYGBgIn0= -->
+<pre class="r"><code> data(golub,package=&quot;multtest&quot;)
+ gol.fac &lt;- factor(golub.cl,levels=0:1, labels= c(&quot;ALL&quot;,&quot;AML&quot;))
+ sh &lt;- apply(golub[,gol.fac==&quot;ALL&quot;], 1, function(x) shapiro.test(x)$p.value)
+ sum(sh &gt; 0.05)/nrow(golub) * 100</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDU4LjI3NTk4XG4ifQ== -->
+<pre><code>[1] 58.27598</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The Shapiro Test tests for normality. Here 58 % of all ALL data is normaliy distributed -&gt; 42% are not normally distributed!</p>
+<p>In case the gene expression data are non-normally dis- tributed the t-test may indicate conclusions different from those of the Wilcoxon test. Differences between these can be investigated by collecting the p-values from both tests and seeking for the largest differences.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YShnb2x1YiwgcGFja2FnZSA9IFwibXVsdHRlc3RcIik7XG5nb2wuZmFjIDwtIGZhY3Rvcihnb2x1Yi5jbCxsZXZlbHM9MDoxLCBsYWJlbHM9IGMoXCJBTExcIixcIkFNTFwiKSlcbnB0IDwtIGFwcGx5KGdvbHViLCAxLCBmdW5jdGlvbih4KSB0LnRlc3QoeCB+IGdvbC5mYWMpJHAudmFsdWUpXG5wdyA8LSBhcHBseShnb2x1YiwgMSwgZnVuY3Rpb24oeCkgd2lsY294LnRlc3QoeCB+IGdvbC5mYWMpJHAudmFsdWUpXG5gYGAifQ== -->
+<pre class="r"><code>data(golub, package = &quot;multtest&quot;);
+gol.fac &lt;- factor(golub.cl,levels=0:1, labels= c(&quot;ALL&quot;,&quot;AML&quot;))
+pt &lt;- apply(golub, 1, function(x) t.test(x ~ gol.fac)$p.value)
+pw &lt;- apply(golub, 1, function(x) wilcox.test(x ~ gol.fac)$p.value)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiY2Fubm90IGNvbXB1dGUgZXhhY3QgcC12YWx1ZSB3aXRoIHRpZXNjYW5ub3QgY29tcHV0ZSBleGFjdCBwLXZhbHVlIHdpdGggdGllc2Nhbm5vdCBjb21wdXRlIGV4YWN0IHAtdmFsdWUgd2l0aCB0aWVzY2Fubm90IGNvbXB1dGUgZXhhY3QgcC12YWx1ZSB3aXRoIHRpZXNjYW5ub3QgY29tcHV0ZSBleGFjdCBwLXZhbHVlIHdpdGggdGllc2Nhbm5vdCBjb21wdXRlIGV4YWN0IHAtdmFsdWUgd2l0aCB0aWVzY2Fubm90IGNvbXB1dGUgZXhhY3QgcC12YWx1ZSB3aXRoIHRpZXNjYW5ub3QgY29tcHV0ZSBleGFjdCBwLXZhbHVlIHdpdGggdGllc2Nhbm5vdCBjb21wdXRlIGV4YWN0IHAtdmFsdWUgd2l0aCB0aWVzY2Fubm90IGNvbXB1dGUgZXhhY3QgcC12YWx1ZSB3aXRoIHRpZXNjYW5ub3QgY29tcHV0ZSBleGFjdCBwLXZhbHVlIHdpdGggdGllc2Nhbm5vdCBjb21wdXRlIGV4YWN0IHAtdmFsdWUgd2l0aCB0aWVzXG4ifQ== -->
+<pre><code>cannot compute exact p-value with tiescannot compute exact p-value with tiescannot compute exact p-value with tiescannot compute exact p-value with tiescannot compute exact p-value with tiescannot compute exact p-value with tiescannot compute exact p-value with tiescannot compute exact p-value with tiescannot compute exact p-value with tiescannot compute exact p-value with tiescannot compute exact p-value with tiescannot compute exact p-value with ties</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucmVzdWwgPC0gZGF0YS5mcmFtZShjYmluZChwdyxwdCkpXG5yZXN1bFtwdzwwLjA1ICYgYWJzKHB0LXB3KT4wLjIsXVxuYGBgIn0= -->
+<pre class="r"><code>resul &lt;- data.frame(cbind(pw,pt))
+resul[pw&lt;0.05 &amp; abs(pt-pw)&gt;0.2,]</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6W119LCJyZGYiOiJINHNJQUFBQUFBQUFBd3R5aVREbWl1QmlZR0JnWm1CaFpHUmdaZ1V5R1ZoRFE5eDBMUmdZV0ppQUhFWUdGZ1pPRUYwQlZDUU1aSUFFK1VDMC9iSVA2WXFmVHdiWUx5am5qZmhRT3c4dWZ1SGU5MUNMN2d6N082Ry83RzVPWElCbUVHdGVZbTVxTVpBaEFEWU1Jc2hVVUE1bmxhQnA0Q3pLTDllRGFlS0Z1SUR4Qk5DZ3ArZ21KK2NrRnNOTWhnbHlwU1NXSk9xbEZRSDFBM24vMExTdzV4ZVVaT2JuQVRVeGdmekdpcWFac1FoTmdMODBEK1NTRk4za2pOSzhiRjFqa0FWZ2FRam1oZEpNcUd5UWxVei9vVWF4UW8xaVM4MUx6OHhMaGJrOUp6RXBOUWZLNFFQNkdPeGh2WUtpekx3U21FK0Fvc1Y2SmZrbGlUQjFYTW41T1RBUnNOOFkvZ0VBdUtxWjlkSUJBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":[""],"name":["_rn_"],"type":[""],"align":["left"]},{"label":["pw"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["pt"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"0.04480288","2":"0.2636088","_rn_":"456"},{"1":"0.03215830","2":"0.4427477","_rn_":"1509"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The p-value is extracted from the output of the t.test function and stored in the vector pt. The logical operator &amp; is used to select genes for which the Wilcoxon p-value is smaller than 0.05 and the absolute difference with the p-value from the t-test is larger than 0.2. Since there are only two such genes we can draw the reassuring conclusion that the tests give similar results.</p>
+<!-- rnb-text-end -->
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQpaLVRlc3QKRXhhbXBsZSAxLiBUbyBpbGx1c3RyYXRlIHRoZSBaLXRlc3Qgd2Ugc2hhbGwgY29uY2VudHJhdGUgb24gdGhlIEdkZjUKZ2VuZSBmcm9tIHRoZSBHb2x1YiBldCBhbC4gKDE5OTkpIGRhdGEgMiAuIFRoZSBjb3JyZXNwb25kaW5nIGV4cHJlc3Npb24KdmFsdWVzIGFyZSBjb250YWluZWQgaW4gcm93IDIwNTguIEEgcXVpY2sgc2VhcmNoIHRocm91Z2ggdGhlIE5DQkkgc2l0ZQptYWtlcyBpdCBsaWtlbHkgdGhhdCB0aGlzIGdlbmUgaXMgbm90IGRpcmVjdGx5IHJlbGF0ZWQgdG8gbGV1a2VtaWEuIEhlbmNlLAp3ZSBtYXkgaHlwb3RoZXNpemUgdGhhdCB0aGUgcG9wdWxhdGlvbiBtZWFuIG9mIHRoZSBBTEwgZXhwcmVzc2lvbiB2YWx1ZXMKZXF1YWxzIHplcm8uIEFjY29yZGluZ2x5LCB3ZSB0ZXN0IEggMCA6IMK1ID0gMCBhZ2FpbnN0IEggMSA6IMK1IDYgPSAwLiBGb3IgdGhlIHNha2UKb2YgaWxsdXN0cmF0aW9uIHdlIHNoYWxsIHByZXRlbmQgdGhhdCB0aGUgc3RhbmRhcmQgZGV2aWF0aW9uIM+DIGlzIGtub3duIHRvIGJlCmVxdWFsIHRvIDAuMjUuIFRoZSB6LXZhbHVlICg9MC4wMDExMTYyMTEpIGNhbiBiZSBjb21wdXRlZCBhcyBmb2xsb3dzLgpgYGB7cn0KZGF0YShnb2x1YiwgcGFja2FnZSA9ICJtdWx0dGVzdCIpCmdvbC5mYWMgPC0gZmFjdG9yKGdvbHViLmNsLGxldmVscz0wOjEsIGxhYmVscz0gYygiQUxMIiwiQU1MIikpCnNpZ21hIDwtIDAuMjU7IG4gPC0gMjc7IG11MCA8LSAwCnggPC0gZ29sdWJbMjA1OCxnb2wuZmFjPT0iQUxMIl0Kei52YWx1ZSA8LSBzcXJ0KG4pKihtZWFuKHgpIC0gbXUwKS9zaWdtYQoKYGBgClRoZSBwLXZhbHVlIGNhbiBub3cgYmUgY29tcHV0ZWQgYXMgZm9sbG93cy4gU2luY2UgaXQgaXMgY2xlYXJseSBsYXJnZXIgdGhhbiAwLjA1LCB3ZSBjb25jbHVkZSB0aGF0IHRoZSBudWxsIGh5cG90aGVzaXMgb2YKbWVhbiBlcXVhbCB0byB6ZXJvIGlzIG5vdCByZWplY3RlZCAoYWNjZXB0ZWQpLgpgYGB7cn0KMipwbm9ybSgtYWJzKHoudmFsdWUpLDAsMSkKYGBgCkV4YW1wbGUgMi4gVXNpbmcgdGhlIGRhdGEgZnJvbSBFeGFtcGxlIDEsIHRoZSA5NSUgY29uZmlkZW5jZSBpbnRlcnZhbApnaXZlbiBieSBFcXVhdGlvbiA0LjEgY2FuIGJlIGNvbXB1dGVkIGFzIGZvbGxvd3MuIDQKYGBge3J9Cm1lYW4oeCkrcW5vcm0oYygwLjAyNSksMCwxKSpzaWdtYS9zcXJ0KG4pCm1lYW4oeCkrcW5vcm0oYygwLjk3NSksMCwxKSpzaWdtYS9zcXJ0KG4pCmBgYApgYGB7cn0KbGlicmFyeShUZWFjaGluZ0RlbW9zKQp6LnRlc3QoeCxtdT0wLHNkPTAuMjUpCmBgYAoKYGBge3J9CmNpLmV4YW1wKG1lYW4uc2ltID0wLCBzZCA9IDEsIG4gPSAyNSwgcmVwcyA9IDEwMCxtZXRob2QgPSAieiIsIGxvd2VyLmNvbmY9MC4wMjUsIHVwcGVyLmNvbmY9MC45NzUpCmBgYAogVC1WYWx1ZSBUZXN0OiAKYGBge3J9CnggPC0gZ29sdWJbMjA1OCxnb2wuZmFjPT0iQUxMIl07IG11MCA8LSAwOyBuIDwtIDI3CnQudmFsdWU8LXNxcnQobikqKG1lYW4oeCkgLSBtdTApL3NkKHgpCnQudmFsdWUKCiMyIMK3IFAgKFQyNiDiiaQg4oiSMC4wMDEwKSA9IDIg4oiXIHB0KOKIkjAuMDAxMCwgMjYpID0gMC45OTkxID4gzrEsCiNUbyBzZWUgd2hldGhlciB0aGUgb2JzZXJ2ZWQgdC12YWx1ZSBiZWxvbmdzIHRvIHRoZSA5NSUgY29uZmlkZW5jZSBpbnRlci0KI3ZhbCwgd2UgY29tcHV0ZQojKHQgMC4wMjUsMjYgLCB0IDAuOTc1LDI2ICkgPSAocXQoMC4wMjUsIG4g4oiSIDEpLCBxdCgwLjk3NSwgbiDiiJIgMSkpID0gKOKIkjIuMDU1LCAyLjA1NSkuCmBgYApTaW5jZSB0aGlzIGludGVydmFsIGRvZXMgY29udGFpbiB0aGUgdC12YWx1ZSwgd2UgZG8gbm90IHJlamVjdCB0aGUgaHlwb3RoZXNpcwp0aGF0IMK1IGVxdWFscyB6ZXJvLiBUaGUgbGVmdCBib3VuZGFyeSBvZiB0aGUgOTUlIGNvbmZpZGVuY2UgaW50ZXJ2YWwgZm9yIHRoZQpwb3B1bGF0aW9uIG1lYW4gY2FuIGJlIGNvbXB1dGVkLCBhcyBmb2xsb3dzLgpgYGB7cn0KbWVhbih4KStxdCgwLjAyNSwyNikqc2QoeCkvc3FydChuKQpgYGAKVGhlIDk1JSBjb25maWRlbmNlIGludGVydmFsIGVxdWFscyAo4oiSMC4xMDI1LCAwLjEwMjUpLiBTaW5jZSBpdCBjb250YWlucyB6ZXJvLAp3ZSBkbyBub3QgcmVqZWN0IHRoZSBudWxsLWh5cG90aGVzaXMuCkluIGRhaWx5IHByYWN0aWNlIGl0IGlzIG11Y2ggbW9yZSBjb252ZW5pZW50IHRvIHVzZSB0aGUgYnVpbHQtaW4tZnVuY3Rpb24KdC50ZXN0LiBXZSBpbGx1c3RyYXRlIGl0IHdpdGggdGhlIGN1cnJlbnQgdGVzdGluZyBwcm9ibGVtLgpgYGB7cn0KdC50ZXN0KHgsbXU9MCkKCnQudGVzdChnb2x1YlsxMDQyLGdvbC5mYWM9PSJBTEwiXSxtdT0wLCBhbHRlcm5hdGl2ZSA9IGMoImdyZWF0ZXIiKSkKYGBgClRoZSBsYXJnZSB0LXZhbHVlIGluZGljYXRlcyB0aGF0LCByZWxhdGl2ZSB0byBpdHMgc3RhbmRhcmQgZXJyb3IsIHRoZSBtZWFuIGRpZi0KZmVycyBsYXJnZWx5IGZyb20gemVyby4gQWNjb3JkaW5nbHksIHRoZSBwLXZhbHVlIGlzIHZlcnkgY2xvc2UgdG8gemVybywgc28gdGhhdAp0aGUgY29uY2x1c2lvbiBpcyB0byByZWplY3QgSCAwCmBgYHtyIFR3by1zYW1wbGUgdC10ZXN0IHdpdGggdW5lcXVhbCB2YXJpYW5jZXN9CiNXZWxjaCBUd28tU2FtcGxlIFRlc3QKdC50ZXN0KGdvbHViWzEwNDIsXSB+Z29sLmZhYywgdmFyLmVxdWFsPUZBTFNFKQpgYGAKVGhlIHQtdmFsdWUgaXMgcXVpdGUgbGFyZ2UsIGluZGljYXRpbmcgdGhhdCB0aGUgdHdvIG1lYW5zIHggYW5kIHkgZGlmZmVyIGxhcmdlbHkKZnJvbSB6ZXJvIHJlbGF0aXZlIHRvIHRoZSBjb3JyZXNwb25kaW5nIHN0YW5kYXJkIGVycm9yIChkZW5vbWluYXRvciBpbiBFcXVhLQp0aW9uIDQuMikuIFNpbmNlIHRoZSBwLXZhbHVlIGlzIGV4dHJlbWVseSBzbWFsbCwgdGhlIGNvbmNsdXNpb24gaXMgdG8gcmVqZWN0IHRoZQpudWxsLWh5cG90aGVzaXMgb2YgZXF1YWwgbWVhbnMuCmBgYHtyIFR3byBzYW1wbGUgdC10ZXN0IHdpdGggZXF1YWwgdmFyaWFuY2VzfQp0LnRlc3QoZ29sdWJbMTA0MixdIH5nb2wuZmFjLCB2YXIuZXF1YWwgPSBUUlVFKQpgYGAKLT4gQ29uY2x1c2lvbiBpcyB0byByZWplY3QgdGhlIG51bGwgSHlwb3RoZXNpcyBvZiBlcXVhbCBwb3B1bGF0aW9uIG1lYW5zLiBQLXZhbHVlIGlzIHNsaWdodGx5IHNtYWxsZXIgdGhhbiB0aGF0IG9mIHRoZSBwcmV2aW91cyB0ZXN0LiAKYGBge3IgRi10ZXN0IG9uIGVxdWFsIHZhcmlhbmNlc30KdmFyLnRlc3QoZ29sdWJbMTA0MixdIH5nb2wuZmFjKQpgYGAKRnJvbSB0aGUgcC12YWx1ZSAwLjQ2NTIsIHRoZSBudWxsLWh5cG90aGVzaXMgb2YgZXF1YWwgdmFyaWFuY2VzIGlzIG5vdCByZS0KamVjdGVkLgpgYGB7ciBCaW5vbWlhbCBUZXN0fQpiaW5vbS50ZXN0KDE4LCAyMiwgcCA9IDAuNywgYWx0ZXJuYXRpdmUgPSBjKCJncmVhdGVyIiksIGNvbmYubGV2ZWwgPSAwLjk1KQpgYGAKYGBge3J9CmxpYnJhcnkoYXBlKQp6eXhpbmZyZXEgPC0gdGFibGUocmVhZC5HZW5CYW5rKGMoIlg5NDk5MS4xIiksYXMuY2hhcmFjdGVyPVRSVUUpKQpjaGlzcS50ZXN0KHp5eGluZnJlcSkKYGBgCgpgYGB7cn0KZGF0IDwtIG1hdHJpeChjKDUsNSw1LDUpLDIsYnlyb3c9VFJVRSkKY2hpc3EudGVzdChkYXQpCgpkYXQgPC0gbWF0cml4KGMoMzAwLDUwMCwzMDAwLDYwMDApLDIsYnlyb3c9VFJVRSkKZmlzaGVyLnRlc3QoZGF0KQpgYGAKClRvIHRlc3QgdGhlIGh5cG90aGVzaXMgdGhhdCB0aGUgQUxMIGdlbmUgZXhwcmVzc2lvbiB2YWx1ZXMKb2YgQ0NORDMgQ3ljbGluIEQzIGZyb20gR29sdWIgZXQgYWwuICgxOTk5KSBhcmUgbm9ybWFsbHkgZGlzdHJpYnV0ZWQsIHRoZQpTaGFwaXJvLVdpbGsgdGVzdCBjYW4gYmUgdXNlZCBhcyBmb2xsb3dzLgoKCmBgYHtyIE5vcm1hbGl0eSBUZXN0fQpzaGFwaXJvLnRlc3QoZ29sdWJbMTA0MiwgZ29sLmZhYz09IkFMTCJdKQoKbGlicmFyeShub3J0ZXN0KQphZC50ZXN0KGdvbHViWzEwNDIsZ29sLmZhYz09IkFMTCJdKQpgYGAKCmBgYHtyIE9VdGxpZXIgVGVzdHN9CmxpYnJhcnkob3V0bGllcnMpCmdydWJicy50ZXN0KGdvbHViWzEwNDIsIGdvbC5mYWM9PSJBTEwiXSkKYGBgCgpgYGB7ciBXaWxjb3hvbiBSYW5rIFRlc3R9CndpbGNveC50ZXN0KGdvbHViWzEwNDIsXSB+CmdvbC5mYWMpCmBgYApBcHBsaWNhdGlvbiBvbiBEYXRhc2V0cwoKYGBge3J9CiBkYXRhKGdvbHViLHBhY2thZ2U9Im11bHR0ZXN0IikKIGdvbC5mYWMgPC0gZmFjdG9yKGdvbHViLmNsLGxldmVscz0wOjEsIGxhYmVscz0gYygiQUxMIiwiQU1MIikpCiBzaCA8LSBhcHBseShnb2x1YlssZ29sLmZhYz09IkFMTCJdLCAxLCBmdW5jdGlvbih4KSBzaGFwaXJvLnRlc3QoeCkkcC52YWx1ZSkKIHN1bShzaCA+IDAuMDUpL25yb3coZ29sdWIpICogMTAwCmBgYApUaGUgU2hhcGlybyBUZXN0IHRlc3RzIGZvciBub3JtYWxpdHkuIEhlcmUgNTggJSBvZiBhbGwgQUxMIGRhdGEgaXMgbm9ybWFsaXkgZGlzdHJpYnV0ZWQgLT4gNDIlIGFyZSBub3Qgbm9ybWFsbHkgZGlzdHJpYnV0ZWQhIAoKSW4gY2FzZSB0aGUgZ2VuZSBleHByZXNzaW9uIGRhdGEgYXJlIG5vbi1ub3JtYWxseSBkaXMtCnRyaWJ1dGVkIHRoZSB0LXRlc3QgbWF5IGluZGljYXRlIGNvbmNsdXNpb25zIGRpZmZlcmVudCBmcm9tIHRob3NlIG9mIHRoZSBXaWxjb3hvbgp0ZXN0LiBEaWZmZXJlbmNlcyBiZXR3ZWVuIHRoZXNlIGNhbiBiZSBpbnZlc3RpZ2F0ZWQgYnkgY29sbGVjdGluZyB0aGUgcC12YWx1ZXMKZnJvbSBib3RoIHRlc3RzIGFuZCBzZWVraW5nIGZvciB0aGUgbGFyZ2VzdCBkaWZmZXJlbmNlcy4KYGBge3J9CmRhdGEoZ29sdWIsIHBhY2thZ2UgPSAibXVsdHRlc3QiKTsKZ29sLmZhYyA8LSBmYWN0b3IoZ29sdWIuY2wsbGV2ZWxzPTA6MSwgbGFiZWxzPSBjKCJBTEwiLCJBTUwiKSkKcHQgPC0gYXBwbHkoZ29sdWIsIDEsIGZ1bmN0aW9uKHgpIHQudGVzdCh4IH4gZ29sLmZhYykkcC52YWx1ZSkKcHcgPC0gYXBwbHkoZ29sdWIsIDEsIGZ1bmN0aW9uKHgpIHdpbGNveC50ZXN0KHggfiBnb2wuZmFjKSRwLnZhbHVlKQpyZXN1bCA8LSBkYXRhLmZyYW1lKGNiaW5kKHB3LHB0KSkKcmVzdWxbcHc8MC4wNSAmIGFicyhwdC1wdyk+MC4yLF0KYGBgClRoZSBwLXZhbHVlIGlzIGV4dHJhY3RlZCBmcm9tIHRoZSBvdXRwdXQgb2YgdGhlIHQudGVzdCBmdW5jdGlvbiBhbmQgc3RvcmVkCmluIHRoZSB2ZWN0b3IgcHQuIFRoZSBsb2dpY2FsIG9wZXJhdG9yICYgaXMgdXNlZCB0byBzZWxlY3QgZ2VuZXMgZm9yIHdoaWNoIHRoZQpXaWxjb3hvbiBwLXZhbHVlIGlzIHNtYWxsZXIgdGhhbiAwLjA1IGFuZCB0aGUgYWJzb2x1dGUgZGlmZmVyZW5jZSB3aXRoIHRoZQpwLXZhbHVlIGZyb20gdGhlIHQtdGVzdCBpcyBsYXJnZXIgdGhhbiAwLjIuIFNpbmNlIHRoZXJlIGFyZSBvbmx5IHR3byBzdWNoIGdlbmVzCndlIGNhbiBkcmF3IHRoZSByZWFzc3VyaW5nIGNvbmNsdXNpb24gdGhhdCB0aGUgdGVzdHMgZ2l2ZSBzaW1pbGFyIHJlc3VsdHMuCg==</div>
 
 
 
