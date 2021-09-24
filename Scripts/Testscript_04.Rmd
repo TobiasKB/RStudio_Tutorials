@@ -113,6 +113,10 @@ library(nortest)
 ad.test(golub[1042,gol.fac=="ALL"])
 ```
 
+Since the p-value is greater than 0.05, the conclusion is not to reject the null
+hypothesis that CCND3 Cyclin D3 expression values follow from a normal
+distribution.
+
 ```{r OUtlier Tests}
 library(outliers)
 grubbs.test(golub[1042, gol.fac=="ALL"])

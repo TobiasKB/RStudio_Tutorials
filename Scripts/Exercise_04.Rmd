@@ -6,13 +6,51 @@ output: html_notebook
 among the list of characters golub.gnames. For each test below for-
 mulate the null hypothesis, the p-value and your conclusion.
 (a) Test the normality of the ALL and AML expression values.
+Q-Q Plot indicates a close to normal distribution distribution of gene expression data, 
+Shapiro-Wilkinson and Anderson Darling Test show a p-value well above 0.05-> the H0 is not rejected
+and the data is very likely normal distributed. Note that for ALL the data is much closer to 
+normal distribution than for AML, which has extreme outliers
+
 (b) Test for the equality of variances.
+F-Test gives ratio of variances 
+         0.4604523 
+  p-value = 0.1095 H0 is not rejected, AML and ALL Have an equal variance
+
 (c) Test for the equality of the means by an appropriate t-test.
+P-value is very small, H0:Equal means can be rejected. 
+(And mean is very different too!)
+
 (d) Is the experimental effect strong?
+t = -6.7878 indicates a very strong effect 
 
 ```{r}
+data(golub,package="multtest")
+#----create factor----
+gol.fac <- factor(golub.cl,levels=0:1, labels= c("ALL","AML"))
+#----find index----
+grep("CD33",golub.gnames[,2])
+#a)====
+#Normality-Test: Shapiro-Wilk and Anderson Darling test
+shapiro.test(golub[808, gol.fac=="ALL"])
+shapiro.test(golub[808, gol.fac=="AML"])
 
+library(nortest)
+ad.test(golub[808,gol.fac=="ALL"])
+ad.test(golub[808,gol.fac=="AML"])
+# perform Q-Q plot to see distribution against the normal distribution
+qqnorm(golub[808,gol.fac=="ALL"])
+qqline(golub[808,gol.fac=="ALL"])
+qqnorm(golub[808,gol.fac=="AML"])
+qqline(golub[808,gol.fac=="AML"])
 
+#b)====
+#Equality of Variances Test: F-Test
+var.test(golub[808,] ~gol.fac)
+
+#c)====
+#T-test for equality of means: Z-Test not applicable as sd is not known
+#Use the two sample t-Test as two groups of patience are available
+t.test(golub[808,] ~gol.fac)
 
 
 ```
