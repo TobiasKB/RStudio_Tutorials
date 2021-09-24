@@ -1,0 +1,123 @@
+---
+title: "Exercise_04
+output: html_notebook
+---
+1. Gene CD33. Use grep to find the index of the important gene CD33
+among the list of characters golub.gnames. For each test below for-
+mulate the null hypothesis, the p-value and your conclusion.
+(a) Test the normality of the ALL and AML expression values.
+(b) Test for the equality of variances.
+(c) Test for the equality of the means by an appropriate t-test.
+(d) Is the experimental effect strong?
+
+```{r}
+
+
+
+
+```
+
+2. Gene ”MYBL2 V-myb avian myeloblastosis viral oncogene homolog-
+like 2” has its expression values in row 1788.
+(a) Use a boxplot to construct a hypothesis about the experimental
+effect.
+(b) Test for the equality of means by an appropriate t-test.
+```{r}
+
+```
+
+3. HOXA9. Gene ”HOXA9 Homeo box A9” with expression values in row
+1391, can cause leukemia (Golub et al., 1999).
+(a) Test the normality of the expression values of the ALL patients.
+(b) Test for the equality of means by an appropriate t-test.
+```{r}
+
+```
+
+4. Zyxin. On NCBI there are various cDNA clones of zyxin.
+(a) Find the accession number of cDNA clone with IMAGE:3504464.
+(b) Test whether the frequencies of the nucleotides are equal for each
+nucleic acid.
+(c) Test whether the frequencies of ”X94991.1” can be predicted by
+the probabilities of the cDNA sequence ”BC002323.2”.
+```{r}
+
+```
+5. Gene selection. Select the genes from the golub data with smallest
+two-sample t-test values for which the ALL mean is greater than the
+AML mean. Report the names of the best ten. Scan the Golub (1999)
+article for genes among the ten you found and discuss their biological
+function briefly.
+```{r}
+
+```
+6. Antigenes. Antigenes play an important role in the development of
+cancer. Order the antigenes according to their p-values from the Welch
+two-sample t-test with respect to gene expression values from the ALL
+and AML patients of the Golub et al. (1999) data.
+```{r}
+
+```
+7. Genetic Model. A certain genetic model predicts that four phenotypes
+occur in ration 9:3:3:1. In a certain experiment the offspring is observed
+with frequencies 930, 330, 290, 90. Do the data confirm the model?
+```{r}
+
+```
+
+8. Comparing two genes. Consider the gene expression values in row 790
+and 66 of the Golub et al. (1999) data.
+(a) Produce a boxplot for the ALL expression values and comment on
+the differences. Are there outliers?
+(b) Compute the mean and the median for the ALL gene expression
+values for both genes. Do you observed difference between genes?
+(c) Compute three measures of spread for the ALL expression values
+for both genes. Do you observe difference between genes?
+(d) Test by Shapiro-Wilk and Anderson-Darling the normality for the
+ALL gene expression values for both genes.
+```{r}
+
+```
+
+9. Normality tests for gene expression values of the Golub et al. (1999)
+data. Perform the Shapiro-Wilk normality test separately for the ALL
+and AML gene expression values. What percentage passed the normal-
+ity test separately for the ALL and the AML gene expression values?
+What percentage passes both testes?
+```{r}
+
+```
+10. Two-sample tests on gene expression values of the Golub et al. (1999)
+data.
+(a) Perform the two-sample Welch t-test and report the names of the
+ten genes with the smallest p-values.
+(b) Perform the Wilcoxon rank test and report the names of the ten
+genes with the smallest p-values.
+```{r}
+
+```
+11. Biological hypotheses. Suppose that the probability to reject a biolog-
+ical hypothesis by the results of a certain experiment is 0.05. Suppose
+that the experiment is repeated 1000 times.
+(a) How many rejections do you expect.
+(b) What is the probability of less than 10 rejections?
+(c) What is the probability of more than 5 rejections?
+(d) What is the probability that the number of rejections is between
+two and eight?
+```{r}
+
+```
+
+12. Programming some tests.
+(a) Program the two-sample t-test with equal variances and illustrate
+it with the expression values of row 1024 the of Golub et al. (1999)
+data.
+(b) The value of W in the two-sample Wilxoxon test equals the sum
+of the ranks of Group 1 minus n(n + 1)/2, where n is the number
+of gene expression values in Group 1. Program this and illustrate
+it with the expression values of row 1024 of Golub et al. (1999)
+data.
+(c) The value of W in the two-sample Wilxoxon test equals the num-
+ber of values x i > y j , where x i , y j are values from Group 1 and
+2, respectively. Program this and illustrate it with the expression
+values of row 1024 of Golub et al. (1999) data.
