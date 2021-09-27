@@ -59,16 +59,50 @@ t.test(golub[808,] ~gol.fac)
 like 2” has its expression values in row 1788.
 (a) Use a boxplot to construct a hypothesis about the experimental
 effect.
+
+The Boxplot shows no outliers, the distribution of the quartiles is about equal,
+both indicate for a normally distributed set which has little to no effect on experimental outcome
+
 (b) Test for the equality of means by an appropriate t-test.
 ```{r}
+
+#a====
+data(golub,package="multtest")
+#----create factor----
+gol.fac <- factor(golub.cl, levels=0:1, labels=c("ALL","AML"))
+#----find index----
+grep("MYBL2",golub.gnames[,2])
+#----extract expression values----
+golub[1788,]
+#----contruct quantiles----
+qqnorm(golub[1788,])
+qqline(golub[1788,])
+#----boxplot----
+boxplot(golub[1788,]~gol.fac)
+
+#----t-test for equality of means----
+t.test(golub[1788, ]~gol.fac,var.equal=TRUE)
 
 ```
 
 3. HOXA9. Gene ”HOXA9 Homeo box A9” with expression values in row
 1391, can cause leukemia (Golub et al., 1999).
 (a) Test the normality of the expression values of the ALL patients.
+Reject, because of the p-value of the SHapiro Wilk Test is way below 0,05
 (b) Test for the equality of means by an appropriate t-test.
 ```{r}
+data(golub,package="multtest")
+#----create factor----
+gol.fac <- factor(golub.cl, levels=0:1, labels=c("ALL","AML"))
+#----find index----
+grep("HOXA9",golub.gnames[,2])
+#----extract expression values----
+golub[1391,]
+
+#====test for normality====
+#Shapiro-Wilk 
+shapiro.test(golub[1391, gol.fac=="ALL"])
+
 
 ```
 
