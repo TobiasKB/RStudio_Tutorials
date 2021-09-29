@@ -147,6 +147,8 @@ AML mean. Report the names of the best ten. Scan the Golub (1999)
 article for genes among the ten you found and discuss their biological
 function briefly.
 
+
+Hypothesis: ALL mean is greater than AML mean
 1. Import Golub
 2. perform two-sample t-test 
 3. Check where ALL > AML
@@ -154,12 +156,27 @@ function briefly.
 5. Scan Golub article for these 10
 6. get biological function
 ```{r}
+library("here")
+
 data(golub, package="multtest")
 gol.fac <- factor(golub.cl, levels = 0:1, labels = c("ALL","AML"))
 
-all_genes <- apply(golub, 1, function(x) t.test (x~gol.fac, alternative = c("greater"))$p.value)
-all_genes
-glimpse (all_genes)
+all_genes <- apply(golub, 1, 
+                   function(x) t.test (x~gol.fac, 
+                                       alternative = c("greater")
+                                       )$p.value)
+golub.gnames[order(all_genes)[1:10]]
+
+library(pdfsearch)
+
+#file <- system.file('pdf', here("Ressources","Molecular_classification_of_cancer_class_discovery.pdf"), package = 'pdfsearch')
+
+result <- keyword_search(here("Ressources","Molecular_classification_of_cancer_class_discovery.pdf"), 
+            keyword = c('pathogenetically'), path = TRUE, surround_lines = 1)
+
+head(result)
+head(result$line_text, n = 1)
+
 
 ```
 6. Antigenes. Antigenes play an important role in the development of
@@ -167,7 +184,20 @@ cancer. Order the antigenes according to their p-values from the Welch
 two-sample t-test with respect to gene expression values from the ALL
 and AML patients of the Golub et al. (1999) data.
 ```{r}
+library(multtest); data(golub)
+gol.fac <- factor(golub.cl,levels=0:1, labels= c("ALL","AML"))
 
+pt <- apply(golub, 1, function(x) t.test(x ~ gol.fac)$p.value)
+
+index <-agrep("^antigen",golub.gnames[,2])
+
+golub.index<-golub[index,]
+
+pt.index<-pt[index]
+
+golub.gnames.index<-golub.gnames[index,]
+
+golub.gnames.index[order(pt.index)[1:length(index)],2]
 ```
 7. Genetic Model. A certain genetic model predicts that four phenotypes
 occur in ration 9:3:3:1. In a certain experiment the offspring is observed
