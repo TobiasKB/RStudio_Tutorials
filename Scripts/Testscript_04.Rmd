@@ -123,8 +123,7 @@ grubbs.test(golub[1042, gol.fac=="ALL"])
 ```
 
 ```{r Wilcoxon Rank Test}
-wilcox.test(golub[1042,] ~
-gol.fac)
+wilcox.test(golub[1042,] ~gol.fac)
 ```
 Application on Datasets
 

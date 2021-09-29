@@ -90,6 +90,8 @@ t.test(golub[1788, ]~gol.fac,var.equal=TRUE)
 (a) Test the normality of the expression values of the ALL patients.
 Reject, because of the p-value of the SHapiro Wilk Test is way below 0,05
 (b) Test for the equality of means by an appropriate t-test.
+Rejected, as the Wilcox-Test for non-normally distributed data with equal variance 
+gives a too small p-value for the hypothesis to be accepted.
 ```{r}
 data(golub,package="multtest")
 #----create factor----
@@ -102,17 +104,41 @@ golub[1391,]
 #====test for normality====
 #Shapiro-Wilk 
 shapiro.test(golub[1391, gol.fac=="ALL"])
+#====test for equality of means====
+wilcox.test(golub[1391,] ~gol.fac)
 
 
 ```
 
 4. Zyxin. On NCBI there are various cDNA clones of zyxin.
 (a) Find the accession number of cDNA clone with IMAGE:3504464.
+BC002323.2.
 (b) Test whether the frequencies of the nucleotides are equal for each
 nucleic acid.
+They are not. Chi-Squared Test has a very very small p-value, way below 0.05
 (c) Test whether the frequencies of ”X94991.1” can be predicted by
 the probabilities of the cDNA sequence ”BC002323.2”.
+Chi-Squared Test: Yes it can, confidence at 99.88 %
+
 ```{r}
+#----read from genbank----
+library(ape)
+library(annotate)
+library(dplyr)
+
+freq_Zyxin<-table(read.GenBank(c("3504464"),as.character=TRUE))
+
+#====Test for multiple probabilities====
+#Use Chi-Squared!
+chisq.test(freq_Zyxin)
+#====c)====
+
+x <- base.freq(read.GenBank(c("BC002323.2")),freq = TRUE, all= FALSE )
+x
+y <- base.freq(read.GenBank(c("X94991.1")), freq = TRUE, all = FALSE)
+y
+
+chisq.test(x, p=y/sum(y))
 
 ```
 5. Gene selection. Select the genes from the golub data with smallest
@@ -120,7 +146,20 @@ two-sample t-test values for which the ALL mean is greater than the
 AML mean. Report the names of the best ten. Scan the Golub (1999)
 article for genes among the ten you found and discuss their biological
 function briefly.
+
+1. Import Golub
+2. perform two-sample t-test 
+3. Check where ALL > AML
+4. Sort and extract top 10 
+5. Scan Golub article for these 10
+6. get biological function
 ```{r}
+data(golub, package="multtest")
+gol.fac <- factor(golub.cl, levels = 0:1, labels = c("ALL","AML"))
+
+all_genes <- apply(golub, 1, function(x) t.test (x~gol.fac, alternative = c("greater"))$p.value)
+all_genes
+glimpse (all_genes)
 
 ```
 6. Antigenes. Antigenes play an important role in the development of
