@@ -147,6 +147,7 @@ AML mean. Report the names of the best ten. Scan the Golub (1999)
 article for genes among the ten you found and discuss their biological
 function briefly.
 
+I could find none. There was no such thing in the pdf :*(
 
 Hypothesis: ALL mean is greater than AML mean
 1. Import Golub
@@ -165,14 +166,15 @@ all_genes <- apply(golub, 1,
                    function(x) t.test (x~gol.fac, 
                                        alternative = c("greater")
                                        )$p.value)
-golub.gnames[order(all_genes)[1:10]]
+topten_genes <- golub.gnames[order(all_genes)[1:10],2]
+topten_genes
 
 library(pdfsearch)
-
+topten_genes[1:10]
 #file <- system.file('pdf', here("Ressources","Molecular_classification_of_cancer_class_discovery.pdf"), package = 'pdfsearch')
 
 result <- keyword_search(here("Ressources","Molecular_classification_of_cancer_class_discovery.pdf"), 
-            keyword = c('pathogenetically'), path = TRUE, surround_lines = 1)
+            keyword = c("X-LINKED HELICASE II"), path = TRUE, surround_lines = 1)
 
 head(result)
 head(result$line_text, n = 1)
@@ -186,15 +188,15 @@ and AML patients of the Golub et al. (1999) data.
 ```{r}
 library(multtest); data(golub)
 gol.fac <- factor(golub.cl,levels=0:1, labels= c("ALL","AML"))
-
+#T Test to all patients
 pt <- apply(golub, 1, function(x) t.test(x ~ gol.fac)$p.value)
-
+#Seeking only those with antigen / index
 index <-agrep("^antigen",golub.gnames[,2])
-
+#New Object containing only antigens
 golub.index<-golub[index,]
-
+#tTest Probability of antigens in one object
 pt.index<-pt[index]
-
+#Get Names to index 
 golub.gnames.index<-golub.gnames[index,]
 
 golub.gnames.index[order(pt.index)[1:length(index)],2]
@@ -202,7 +204,17 @@ golub.gnames.index[order(pt.index)[1:length(index)],2]
 7. Genetic Model. A certain genetic model predicts that four phenotypes
 occur in ration 9:3:3:1. In a certain experiment the offspring is observed
 with frequencies 930, 330, 290, 90. Do the data confirm the model?
+Chi Squared Test wird benoetigt. 
+9/16:3/16:3/16:1/16
+vs 
+930/SUM:330/SUM:....
+Accepted, because p-value is above 0.05
+
 ```{r}
+x <- c(930,330,290,90)
+pi <- c(9/16, 3/16, 3/16,1/16)
+chisq.test(x, p=pi)
+
 
 ```
 
@@ -210,13 +222,61 @@ with frequencies 930, 330, 290, 90. Do the data confirm the model?
 and 66 of the Golub et al. (1999) data.
 (a) Produce a boxplot for the ALL expression values and comment on
 the differences. Are there outliers?
+
+Yes, for 790 there are some extreme outliers to the top (overexpressed ?)
+
 (b) Compute the mean and the median for the ALL gene expression
 values for both genes. Do you observed difference between genes?
+
+Yes.
+Mean of 66 is positive, mean of 790 negative. |mean| is almost the same. 
+
 (c) Compute three measures of spread for the ALL expression values
 for both genes. Do you observe difference between genes?
+
+Measures of spread: 
+Standard deviation (SD)
+Interquartile Range (IQR)
+median absolute deviation (MAD)
+
+yes, there are very clear differences. 
+The MAD (mean absolute deviation) shows the spread of data by being the average of distances to the mean. 
+The bigger the MAD the more spread out data is, 66 is far more spread out than 790, following this value.
+
+The IQR is the range between the first and the third quartile. Divide it by 1.349 to get an estimate of the standard deviation. 
+Here, the range (biggest-smallest value) of the IQR is much larger for 66, indicating that the mid data is spread out further than with 790. 
+
+Variance:
+The Variance is the average of the squared differences from the mean. Small variance
+
+
 (d) Test by Shapiro-Wilk and Anderson-Darling the normality for the
 ALL gene expression values for both genes.
 ```{r}
+data(golub, package="multtest")
+
+gol.fac <-factor(golub.cl,levels=0:1,labels=c("ALL","AML"))
+all_66 <- golub[66, gol.fac=="ALL"]
+all_790 <-golub[790,gol.fac=="ALL"]
+
+boxplot(all_66, all_790)
+#b====
+mean(all_66)
+mean(all_790)
+median(all_66)
+median(all_790)
+#c)====
+print("All66: sd, mean, IQR, mad")
+sd(all_66)
+mean(all_66)
+IQR(all_66)
+mad(all_66)
+print("ALL_790: sd, mean, IQR, mad")
+
+sd(all_790)
+mean(all_66)
+IQR(all_790)
+mad(all_790)
 
 ```
 
