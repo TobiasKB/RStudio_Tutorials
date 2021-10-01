@@ -247,11 +247,31 @@ The IQR is the range between the first and the third quartile. Divide it by 1.34
 Here, the range (biggest-smallest value) of the IQR is much larger for 66, indicating that the mid data is spread out further than with 790. 
 
 Variance:
-The Variance is the average of the squared differences from the mean. Small variance
+The Variance is the average of the squared differences from the mean. Small variance indicates a smaller spread. 
 
+Standard deviation: The average distance of the datapoints to the mean. The SD is the square root of the variance. (Outliers have a much bigger effect than for MAD)
+Small SD indicates smaller spread. IQR/1.349 approximates the sd. 
+
+
+[1] "All66: sd, mean, IQR, mad"
+[1] 0.4408175
+[1] 1.182503
+[1] 0.57737
+[1] 0.4523413
+[1] "ALL_790: sd, mean, IQR, mad"
+[1] 0.4809953
+[1] 1.182503
+[1] 0.20667
+[1] 0.1864814
+
+These data indicate that ALL_66 had a much more outspread mid 50% of data, with the MAD vAlue being higher than in the ALL_790 set too. 
+However the sd are about the same, as well as their mean. This is only plausible if the 790 dataset has extreme outliers which allow for equal mean, but its data being rather centered around the mean in general. Looking at the boxplots, this indeed is confirmed, ALL_66 is more widespread in its mid 50% and has no extreme outliers, while ALL790 has.
 
 (d) Test by Shapiro-Wilk and Anderson-Darling the normality for the
 ALL gene expression values for both genes.
+
+The shapiro Wilk test (based on degree of linearity in Q-Q Plot) indeed indicates a normal distribution for all 66, while all 790 has to be rejected.
+The Anderson Darling Test, based on the distribution of data, too accepts normality for all66 and rejects it for all790, which means that the outliers of 790 must have an extreme influence on their distribution.
 ```{r}
 data(golub, package="multtest")
 
@@ -271,12 +291,24 @@ sd(all_66)
 mean(all_66)
 IQR(all_66)
 mad(all_66)
+
+IQR(all_66)/1.349
+
 print("ALL_790: sd, mean, IQR, mad")
 
 sd(all_790)
 mean(all_66)
 IQR(all_790)
 mad(all_790)
+IQR(all_790)/1.349
+
+#d)====
+shapiro.test(all_66)
+shapiro.test(all_790)
+
+library(nortest)
+ad.test(all_66)
+ad.test(all_790)
 
 ```
 
@@ -285,7 +317,23 @@ data. Perform the Shapiro-Wilk normality test separately for the ALL
 and AML gene expression values. What percentage passed the normal-
 ity test separately for the ALL and the AML gene expression values?
 What percentage passes both testes?
+ALL PASS: 58,28%
+AML PASS: 78,56%
+
+BOTH: 49,72%
+
 ```{r}
+data(golub, package = "multtest")
+gol.fac <- factor(golub.cl,0:1, labels=c("ALL","AML"))
+
+allsh <- apply(golub[,gol.fac=="ALL"], 1, function(x) shapiro.test(x)$p.value)
+amlsh <- apply(golub[,gol.fac=="AML"], 1, function(x) shapiro.test(x)$p.value)
+
+100 * sum(allsh>0.05)/length(allsh)
+#SUM creates a vector with TRUE or FALSE. Since TRUE and FALSE are 1 and 0, the sum over those values equals the amount of values greater than specified)
+100 * sum(amlsh>0.05)/length(amlsh)
+#Percentage passing both tests:
+100 * sum(allsh>0.05 & amlsh > 0.05)/length(amlsh)
 
 ```
 10. Two-sample tests on gene expression values of the Golub et al. (1999)
@@ -295,6 +343,16 @@ ten genes with the smallest p-values.
 (b) Perform the Wilcoxon rank test and report the names of the ten
 genes with the smallest p-values.
 ```{r}
+library(dplyr)
+data(golub, package = "multtest")
+gol.fac <- factor(golub.cl,0:1, labels=c("ALL","AML"))
+
+t.test(golub[1042,] ~gol.fac, var.equal=FALSE)
+ttest <- apply(golub,1, function(x) t.test(x)$p.value ) %>%
+  order(ttest, decreasing=FALSE ) %>%
+  print(ttest)
+
+ttest[1:10]
 
 ```
 11. Biological hypotheses. Suppose that the probability to reject a biolog-
