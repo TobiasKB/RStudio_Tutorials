@@ -347,23 +347,50 @@ library(dplyr)
 data(golub, package = "multtest")
 gol.fac <- factor(golub.cl,0:1, labels=c("ALL","AML"))
 
-t.test(golub[1042,] ~gol.fac, var.equal=FALSE)
-ttest <- apply(golub,1, function(x) t.test(x)$p.value ) %>%
-  order(ttest, decreasing=FALSE ) %>%
-  print(ttest)
+#a)====
+welch_test <- apply(golub,1, function(x) t.test(x~gol.fac)$p.value )
+o <- order(welch_test,decreasing=FALSE)
+golub.gnames[o[1:10],2]
 
-ttest[1:10]
+#dplyr nor useable, as object has to exist beforehand
+
+#b)====
+
+wilcox_test <- apply(golub,1, function(x) wilcox.test(x~gol.fac)$p.value)
+o <- order(wilcox_test,decreasing=FALSE)
+golub.gnames[o[1:10],2]
 
 ```
 11. Biological hypotheses. Suppose that the probability to reject a biolog-
 ical hypothesis by the results of a certain experiment is 0.05. Suppose
 that the experiment is repeated 1000 times.
+
 (a) How many rejections do you expect.
+n=1000, p=0.05, n*p=50
+
 (b) What is the probability of less than 10 rejections?
+Binomial Distribution; either 0 or 1 are the results -> pbinom(9,1000,0.05)
+5.242679e-13
+
 (c) What is the probability of more than 5 rejections?
+1
+
 (d) What is the probability that the number of rejections is between
 two and eight?
+8.837404e-14
+
 ```{r}
+#a)====
+#n=1000, a=0.05 np=50
+#b)====
+pbinom(9,1000,0.05)
+#c)====
+1-pbinom(5,1000,0.05)
+#solution from paper:
+sum(dbinom(6:1000,1000,.05))
+#d)====
+sum(dbinom(2:8,1000,0.05))
+
 
 ```
 
@@ -380,3 +407,20 @@ data.
 ber of values x i > y j , where x i , y j are values from Group 1 and
 2, respectively. Program this and illustrate it with the expression
 values of row 1024 of Golub et al. (1999) data.
+```{r}
+data(golub, package = "multtest")
+gol.fac <- factor(golub.cl, 0:1, labels = c("ALL","AML"))
+
+t.test(golub[1024,] ~gol.fac)
+x <- golub[1042,gol.fac=="ALL"]
+n <- length(x)
+y <- golub[1042,gol.fac=="AML"]
+m <- length(y)
+t <- (mean(x)-mean(y))/sqrt(var(x)/n + var(y)/m)
+v <- (var(x)/n + var(y)/m)^2/( (var(x)/n)^2/(n-1) + (var(y)/m)^2/(m-1)+2*pt(-abs(t),v))
+                               
+mean(x) - mean(y) + qt(0.025,v)* sqrt(var(x)/n + var(y)/m)
+
+mean(x) - mean(y) + qt(0.975,v)* sqrt(var(x)/n + var(y)/m)
+
+```
