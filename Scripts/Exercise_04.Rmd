@@ -410,17 +410,36 @@ values of row 1024 of Golub et al. (1999) data.
 ```{r}
 data(golub, package = "multtest")
 gol.fac <- factor(golub.cl, 0:1, labels = c("ALL","AML"))
+# T Test for unequal variances (welch)
+t.test(golub[1024,] ~gol.fac, var.equal=FALSE)
+# T Test for equal Variances 
+t.test(golub[1024,] ~gol.fac, var.equal = TRUE)
 
-t.test(golub[1024,] ~gol.fac)
-x <- golub[1042,gol.fac=="ALL"]
+#t = x - y  - (mu1 - mu2 ) / sqrt(s1/n + s2/m )
+#mu is population mean (vs sample mean)eee
+#x = mean(x) 
+# s = variance 
+#x = dataset 1
+#y= dataset 2
+# n = length (x)
+# m = length (y)
+# v - degrees of freedom! = ((s1/n + s2/m)^2 ) / ((s1/n)^2/(n-1) + (s2/m)^2/(m-1))
+# if equal variances are assumed, then v = n + m -2 
+
+
+x <- golub[1024, gol.fac=="ALL"]
+y <- golub[1024, gol.fac=="AML"]
 n <- length(x)
-y <- golub[1042,gol.fac=="AML"]
 m <- length(y)
-t <- (mean(x)-mean(y))/sqrt(var(x)/n + var(y)/m)
-v <- (var(x)/n + var(y)/m)^2/( (var(x)/n)^2/(n-1) + (var(y)/m)^2/(m-1)+2*pt(-abs(t),v))
-                               
+n+m-2
+#Where did mu go ?
+t <- (mean(x)-mean(y))/sqrt(var(x)/n+var(y)/m)
+t
+v <- (var(x)/n + var(y)/m)^2 / ( (var(x)/n)^2 / (n-1) + (var(y)/m)^2 / (m-1))
+v
+2*pt(-abs(t),v)
+
 mean(x) - mean(y) + qt(0.025,v)* sqrt(var(x)/n + var(y)/m)
-
 mean(x) - mean(y) + qt(0.975,v)* sqrt(var(x)/n + var(y)/m)
-
+# Verwirrung. In der Angabe steht der Tsample test for equal variances, aber es kommt der df von Welch Test - Uneuqal variances heraus ?
 ```
