@@ -431,15 +431,31 @@ x <- golub[1024, gol.fac=="ALL"]
 y <- golub[1024, gol.fac=="AML"]
 n <- length(x)
 m <- length(y)
-n+m-2
-#Where did mu go ?
-t <- (mean(x)-mean(y))/sqrt(var(x)/n+var(y)/m)
-t
-v <- (var(x)/n + var(y)/m)^2 / ( (var(x)/n)^2 / (n-1) + (var(y)/m)^2 / (m-1))
-v
-2*pt(-abs(t),v)
 
+#assuming equal variances, then the formula is reduced to: 
+t <- (mean(x)-mean(y))/sqrt(var(x)/n+var(y)/m)
+#Calculation of v degrees of freedome. If equal variances are assumed, then v = N1 + N2 -2
+#Critical Region: Reject the null hypothesis that the two means are equal if |T| > t^1-alpha/2,v where v : 
+#v <- (var(x)/n + var(y)/m)^2 / ( (var(x)/n)^2 / (n-1) + (var(y)/m)^2 / (m-1))
+#actually makes sense, degree of freedome is sample size -1 == with 2 samples -2 ...
+v <- n-m -2
+#Woher kommt diese Formel? Calculates p Value for dist. 
+2*pt(-abs(t),v)
+#Woher kommt diese Formel ?
+#mean(x) - mean(y) + quartile T Student distribution (0.025, degrees of freedome) * squrt (var(x)/n +var(y)/m )
+#These are the sample estimates for the 95% confidence interval: 
 mean(x) - mean(y) + qt(0.025,v)* sqrt(var(x)/n + var(y)/m)
 mean(x) - mean(y) + qt(0.975,v)* sqrt(var(x)/n + var(y)/m)
 # Verwirrung. In der Angabe steht der Tsample test for equal variances, aber es kommt der df von Welch Test - Uneuqal variances heraus ?
+
+#b)====
+
+z <- golub[1024, ]
+
+sum(rank(z)[1:27] ) - 0.5*27*(27+1)
+
+#c)====
+w <- 0 
+for(i in 1:27) w <- w + sum(x[i]>y)
+w
 ```
